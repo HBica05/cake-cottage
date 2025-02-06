@@ -50,6 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 // Clear the comment input field after the form is submitted
                 document.querySelector('#comment-content').value = ''; 
+                
             }
         });
     }
