@@ -26,3 +26,31 @@ document.addEventListener('DOMContentLoaded', () => {
                 }),
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, // Set the request content type
             });
+
+            // If the request is successful (status code 200-299)
+            if (response.ok) {
+                // Parse the response JSON to get the new comment data
+                const newComment = await response.json();
+                
+                // Find the section where comments are displayed on the page
+                const commentsSection = document.querySelector('.comments');
+                
+                // Create a new div element to display the new comment
+                const newCommentElement = document.createElement('div');
+                newCommentElement.classList.add('comment'); // Add a class for styling
+                
+                // Set the inner HTML of the new comment element with the comment details
+                newCommentElement.innerHTML = `
+                    <p><strong>${newComment.user}</strong>: ${newComment.content}</p>
+                    <p><small>${newComment.created_at}</small></p>
+                `;
+                
+                // Append the new comment element to the comments section
+                commentsSection.appendChild(newCommentElement);
+                
+                // Clear the comment input field after the form is submitted
+                document.querySelector('#comment-content').value = ''; 
+            }
+        });
+    }
+});
