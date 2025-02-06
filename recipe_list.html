@@ -1,6 +1,0 @@
-<div class="recipe-card">
-    <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}">
-    <h3>{{ recipe.title }}</h3>
-    <p>{{ recipe.created_at|date:"F j, Y" }}</p>
-    <a href="{% url 'recipe_detail' recipe.id %}">View Recipe</a>
-</div>
