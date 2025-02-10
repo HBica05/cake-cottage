@@ -14,3 +14,67 @@ body {
     background-size: cover;
     font-family: 'Roboto', sans-serif;
 }
+
+.opaque-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+h1, h2, h3 {
+    color: #d27d5f;
+    font-family: 'Comic Sans MS', 'Arial', sans-serif;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+/* Navigation */
+header {
+    background-color: rgba(255,194,209, 0.4);
+    padding: 20px 0;
+    top: 0;
+    z-index: 100;
+}
+
+header .container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+}
+
+header h1 {
+    font-size: 4rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: #d27d5f;
+    font-family: 'Georgia', 'Times New Roman', serif;
+}
+
+header nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+header nav ul li {
+    font-size: 1.2rem;
+}
+
+header nav ul li a {
+    text-decoration: none;
+    color: #302f2f;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+header nav ul li a:hover {
+    color: #d27d5f;
+    text-decoration: underline;
+}

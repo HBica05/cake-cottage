@@ -14,15 +14,30 @@
     <link rel="stylesheet" href="assets/css/index.css">
 </head>
 <body>
+
     <header>
-        <h1>Welcome to Cake Cottage</h1>
-        <nav>
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Recipes</a></li>
-                <li><a href="#"></a></li>
-            </ul>
-        </nav>
+        <div class="container">
+            <h1><i class="fa-solid fa-wheat-awn"></i> Little Cottage</h1>
+            <nav>
+                <div class="menu-icon" id="menu-icon" aria-label="Toggle navigation menu">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <ul id="nav-links" aria-label="Main navigation links">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <!-- Dropdown Menu for Products -->
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" id="productsDropdown" aria-haspopup="true" aria-expanded="false">Products</a>
+                        <ul class="dropdown-menu" aria-labelledby="productsDropdown">
+                            <li><a href="#cakes">Cakes</a></li>
+                            <li><a href="#pastries">Pastries</a></li>
+                            <li><a href="#breads">Breads</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
     </header>
     
     <main>
