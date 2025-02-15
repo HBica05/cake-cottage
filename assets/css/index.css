@@ -160,3 +160,66 @@ header nav ul li a:hover {
 .hero .btn:hover {
     background-color: #b55d42;
 }
+
+/* Products Section */
+.products {
+    padding: 50px 0;
+    background-color: #ffffff;
+}
+
+.products .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+    padding-top: 30px;
+}
+
+.product-list {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.product {
+    background-color: #f7f3f0;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 30%;
+    text-align: center;
+}
+
+.product img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.product h2 {
+    font-size: 1.8rem;
+}
+
+.product h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.product p {
+    font-size: 1.2rem;
+}
+
+/* About Us Section */
+.about {
+    padding: 50px 0;
+    background-color: #f8f0e3;
+    text-align: center;
+}
+
+.about p {
+    font-size: 1.3rem;
+    max-width: 800px;
+    margin: 20px auto;
+}
