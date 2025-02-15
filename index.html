@@ -134,6 +134,21 @@
         </div>
     </footer>    
     
-    <script src="script.js"></script>
+    <!-- JavaScript for Hamburger Menu -->
+    <script>
+        const menuIcon = document.getElementById("menu-icon");
+        const navLinks = document.getElementById("nav-links");
+
+        menuIcon.addEventListener("click", () => {
+            navLinks.classList.toggle("active");
+        });
+
+        const navItems = document.querySelectorAll("#nav-links a");
+        navItems.forEach(item => {
+            item.addEventListener("click", () => {
+                navLinks.classList.remove("active");
+            });
+        });
+    </script>
 </body>
 </html>
