@@ -197,3 +197,45 @@ footer p {
         font-size: 0.9rem;
     }
 }
+
+.product {
+    /* Basic product styling */
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.view-recipe-btn, .like-btn, .submit-comment {
+    background-color: #d27d5f;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    margin: 10px 0;
+}
+
+.view-recipe-btn:hover, .like-btn:hover, .submit-comment:hover {
+    background-color: #b55d42;
+}
+
+.comments {
+    margin-top: 20px;
+}
+
+.comment-list {
+    margin-bottom: 10px;
+}
+
+.comment-item {
+    background-color: #f1f0f0;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+textarea.comment-input {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
