@@ -142,7 +142,37 @@
             <p>&copy; 2025 The Little Cake Cottage | All Rights Reserved</p>
         </div>
     </footer>
-    
+
+
+    <!-- JavaScript for Hamburger Menu -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+    <script>
+        // Get the menu icon and the navigation links container
+        const menuIcon = document.getElementById("menu-icon");
+        const navLinks = document.getElementById("nav-links");
+
+        // Toggle the display of the navigation links when the menu icon is clicked
+        menuIcon.addEventListener("click", () => {
+            if (navLinks.style.display === "block") {
+                navLinks.style.display = "none"; // Hide the nav links if they are visible
+            } else {
+                navLinks.style.display = "block"; // Show the nav links if they are hidden
+            }
+        });
+
+        // Optionally, close the menu when any of the navigation links are clicked
+        const navItems = document.querySelectorAll("#nav-links a");
+        navItems.forEach(item => {
+            item.addEventListener("click", () => {
+                navLinks.style.display = "none"; // Close the menu when a link is clicked
+            });
+        });
+        
+    </script>    
+
     <!-- Link JavaScript File -->
     <script src="script.js"></script>
 </body>
