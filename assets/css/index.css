@@ -288,3 +288,21 @@ header nav ul li a:hover {
         width: 100%;
     }
 }
+
+/* Email text styling */
+.email-text {
+    font-size: 0.7rem;  /* Smaller font size */
+    color: #d27d5f;  /* Match the color of the header */
+    margin-top: 20px;
+    font-weight: 500;  /* Slightly bolder text */
+}
+
+.email-text a {
+    color: #d27d5f;  /* Same color for the link */
+    text-decoration: none;  /* Remove underline */
+    font-weight: 600;  /* Make the email link stand out */
+}
+
+.email-text a:hover {
+    text-decoration: underline;  /* Add underline on hover */
+}
