@@ -28,16 +28,22 @@
             <div class="comment">
                 <p><strong>{{ comment.user.username }}</strong>: {{ comment.content }}</p>
                 <p><small>{{ comment.created_at|date:"F j, Y" }}</small></p>
+                {% if user == comment.author %}
+                <a href="{% url 'edit_comment' comment.id %}">Edit</a>
+                <a href="{% url 'delete_comment' comment.id %}">Delete</a>
+            {% endif %}
             </div>
             {% endfor %}
         </div>
 
-        <h3>Add a Comment</h3>
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Submit Comment</button>
-        </form>
+        {% if user.is_authenticated %}    
+            <h3>Add a Comment</h3>
+            <form method="post" action="{% url 'add_comment' recipe.id %}">
+                {% csrf_token %}
+                {{ comment_form.as_p }}
+                <button type="submit">Submit Comment</button>
+            </form>
+        {% endif %}    
     </div>
 </body>
 </html>
