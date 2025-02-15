@@ -55,3 +55,23 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+// Handling like button
+document.querySelector('.like-btn').addEventListener('click', function() {
+    let likeCount = document.querySelector('.like-count');
+    likeCount.textContent = parseInt(likeCount.textContent) + 1;  // Increment like count
+});
+
+// Handling comment submission
+document.querySelector('.submit-comment').addEventListener('click', function() {
+    let commentInput = document.querySelector('.comment-input');
+    let commentText = commentInput.value.trim();
+    if (commentText) {
+        let commentList = document.querySelector('.comment-list');
+        let newComment = document.createElement('div');
+        newComment.classList.add('comment-item');
+        newComment.textContent = commentText;
+        commentList.appendChild(newComment);
+        commentInput.value = '';  // Clear the comment input
+    }
+});
