@@ -306,3 +306,15 @@ header nav ul li a:hover {
 .email-text a:hover {
     text-decoration: underline;  /* Add underline on hover */
 }
+
+/* Footer */
+footer {
+    background-color: #f1c0b9;
+    padding: 20px 0;
+    text-align: center;
+}
+
+footer p {
+    color: #fff;
+    font-size: 1rem;
+}
