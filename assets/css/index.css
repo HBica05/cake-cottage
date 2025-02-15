@@ -85,3 +85,41 @@ header nav ul li a:hover {
     font-size: 2rem;
     cursor: pointer;
 }
+
+/* Mobile (Tablet and below) */
+@media (max-width: 768px) {
+    #nav-links {
+        display: none;
+        width: 100%;
+        text-align: center;
+        background-color: rgba(243, 185, 176, 0.9);
+        position: absolute;
+        top: 70px;
+        left: 0;
+        padding: 20px 0;
+    }
+
+    .menu-icon {
+        display: block;
+    }
+
+    header nav ul {
+        flex-direction: column;
+    }
+
+    header nav ul li {
+        margin-bottom: 15px;
+    }
+
+    header nav ul li a {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        font-size: 1.3rem;
+    }
+    
+    #nav-links.active {
+        display: block;
+    }
+}
+
