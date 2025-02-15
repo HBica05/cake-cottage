@@ -75,3 +75,67 @@ header nav ul li a:hover {
     font-size: 2rem;
     cursor: pointer;
 }
+
+/* Menu Sections */
+.menu-category {
+    padding: 50px 0;
+}
+
+.menu-category h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #d27d5f;
+    margin-bottom: 30px;
+}
+
+.menu-list {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.menu-item {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    width: 30%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.menu-item img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.menu-item h3 {
+    font-size: 1.8rem;
+    color: #d27d5f;
+    margin-bottom: 10px;
+}
+
+.menu-item p {
+    font-size: 1.1rem;
+    color: #4e4e4e;
+}
+
+.menu-item strong {
+    font-size: 1.2rem;
+    color: #b55d42;
+}
+
+/* Footer */
+footer {
+    background-color: #f1c0b9;
+    padding: 20px 0;
+    text-align: center;
+}
+
+footer p {
+    color: #fff;
+    font-size: 1rem;
+}
