@@ -149,28 +149,22 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 
+    <!-- JavaScript for Hamburger Menu -->
     <script>
-        // Get the menu icon and the navigation links container
         const menuIcon = document.getElementById("menu-icon");
         const navLinks = document.getElementById("nav-links");
 
-        // Toggle the display of the navigation links when the menu icon is clicked
         menuIcon.addEventListener("click", () => {
-            if (navLinks.style.display === "block") {
-                navLinks.style.display = "none"; // Hide the nav links if they are visible
-            } else {
-                navLinks.style.display = "block"; // Show the nav links if they are hidden
-            }
+            const isExpanded = navLinks.classList.toggle("active");
+            menuIcon.setAttribute("aria-expanded", isExpanded);
         });
 
-        // Optionally, close the menu when any of the navigation links are clicked
-        const navItems = document.querySelectorAll("#nav-links a");
-        navItems.forEach(item => {
+        document.querySelectorAll("#nav-links a").forEach(item => {
             item.addEventListener("click", () => {
-                navLinks.style.display = "none"; // Close the menu when a link is clicked
+                navLinks.classList.remove("active");
+                menuIcon.setAttribute("aria-expanded", false);
             });
         });
-        
     </script>    
 
     <!-- Link JavaScript File -->

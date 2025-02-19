@@ -1,5 +1,6 @@
 from django.urls import path, include
 from . import views
+from .views import register
 
 urlpatterns = [
     # URL for displaying the list of recipes
@@ -16,4 +17,7 @@ urlpatterns = [
     
     # URL for deleting a comment
     path('comment/delete/<int:comment_id>/', views.delete_comment, name='delete_comment'),
+
+    # URL for registering
+    path("register/", register, name="register"),
 ]

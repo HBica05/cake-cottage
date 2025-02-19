@@ -79,24 +79,47 @@ header nav ul li a:hover {
     text-decoration: underline;
 }
 
-/* Hamburger Menu Icon (hidden on large screens) */
+
 .menu-icon {
+   display:none;
+   cursor: pointer;
+}
+
+.dropdown-menu {
     display: none;
-    font-size: 2rem;
-    cursor: pointer;
+    position: absolute;
+    background: white;
+    list-style: none;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+@media screen and (max-width: 768px) {
+    .dropdown-menu {
+        position: static;
+        box-shadow: none;
+    }
 }
 
 /* Mobile (Tablet and below) */
 @media (max-width: 768px) {
     #nav-links {
         display: none;
+        flex-direction: column;
         width: 100%;
         text-align: center;
         background-color: rgba(243, 185, 176, 0.9);
         position: absolute;
-        top: 70px;
-        left: 0;
-        padding: 20px 0;
+        top: 60px;
+        right: 0;
+    }
+
+    #nav-links.active {
+        display: flex;
     }
 
     .menu-icon {
@@ -118,9 +141,6 @@ header nav ul li a:hover {
         font-size: 1.3rem;
     }
     
-    #nav-links.active {
-        display: block;
-    }
 }
 
 /* Hero Section */

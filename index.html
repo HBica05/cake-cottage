@@ -140,15 +140,19 @@
         const navLinks = document.getElementById("nav-links");
 
         menuIcon.addEventListener("click", () => {
-            navLinks.classList.toggle("active");
+            const isExpanded = navLinks.classList.toggle("active");
+            menuIcon.setAttribute("aria-expanded", isExpanded);
         });
 
-        const navItems = document.querySelectorAll("#nav-links a");
-        navItems.forEach(item => {
+        document.querySelectorAll("#nav-links a").forEach(item => {
             item.addEventListener("click", () => {
                 navLinks.classList.remove("active");
+                menuIcon.setAttribute("aria-expanded", false);
             });
         });
     </script>
+    
+    <!-- Link JavaScript File -->
+    <script src="script.js"></script>
 </body>
 </html>

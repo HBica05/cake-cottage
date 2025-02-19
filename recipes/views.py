@@ -2,7 +2,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Recipe, Comment
 from .forms import RecipeForm, CommentForm
 from django.contrib.auth.decorators import login_required
-
+from django.contrib.auth.models import User
+from django.contrib import messages
 
 @login_required
 def recipe_list(request):
@@ -50,3 +51,23 @@ def delete_comment(request, comment_id):
     if request.user == comment.author:
         comment.delete()
     return redirect('recipe_detail', recipe_id=comment.recipe.id)
+
+def register(request):
+    if request.method == "POST":
+        username = request.POST["username"]
+        email = request.POST["email"]
+        password = request.POST["password"]
+        confirm_password = request.POST["confirmPassword"]
+
+        if password == confirm_password:
+            if not User.objects.filter(username=username).exists():
+                user = User.objects.create_user(username=username, email=email, password=password)
+                user.save()
+                messages.success(request, "Account created successfully! 🎉")
+                return redirect("login")
+            else:
+                messages.error(request, "Username already taken!")
+        else:
+            messages.error(request, "Passwords do not match!")
+
+    return render(request, "register.html")
