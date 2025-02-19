@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 
 class Recipe(models.Model):
     title = models.CharField(max_length=200)
+    image = models.ImageField(upload_to='recipes/')  # Store images in 'recipes/' subdirectory
     description = models.TextField()
     ingredients = models.TextField()
     instructions = models.TextField()

@@ -5,6 +5,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib import messages
 
+def index(request):
+    recipes = Recipe.objects.all()  # Retrieve all recipes from the database
+    return render(request, 'index.html', {'recipes': recipes})
+
 @login_required
 def recipe_list(request):
     recipes = Recipe.objects.all()

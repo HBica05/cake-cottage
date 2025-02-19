@@ -109,6 +109,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    BASE_DIR / 'assets',  # Assuming your 'assets' folder is at the project root
+]
+STATIC_ROOT = BASE_DIR / 'staticfiles'  # For collecting static files in production
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type

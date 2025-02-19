@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bakery Recipes</title>
+    {% load static %}
     <link rel="stylesheet" href="{% static 'css/recipe_list.css' %}">
 </head>
 <body>
@@ -12,8 +13,8 @@
         <h1>Welcome to the Bakery!</h1>
         <nav>
             <a href="{% url 'recipe_create' %}">Create Recipe</a>
-            <a href="#">Login</a>
-            <a href="#">Sign Up</a>
+            <a href="{% url 'login' %}">Login</a>
+            <a href="{% url 'signup' %}">Sign Up</a>
         </nav>
     </header>
 

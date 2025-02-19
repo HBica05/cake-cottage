@@ -151,8 +151,33 @@
             });
         });
     </script>
-    
+
+    <!--// This script dynamically adds recipe items to the `.recipe-list` container.  
+    // It creates recipe elements from the `recipes` array and appends them to the page.-->   
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const recipeList = document.querySelector(".recipe-list");
+
+            const recipes = [
+                { name: "Chocolate Cake", img: "assets/img/choco_cake.jpg", desc: "A rich chocolate delight!" },
+                { name: "Croissant", img: "assets/img/croissant.jpg", desc: "A buttery, flaky pastry." },
+                { name: "Sourdough Bread", img: "assets/img/sourdough.jpg", desc: "A crusty, tangy bread." }
+            ];
+
+            recipes.forEach(recipe => {
+                const recipeItem = document.createElement("div");
+                recipeItem.classList.add("recipe-item");
+                recipeItem.innerHTML = `
+                    <img src="${recipe.img}" alt="${recipe.name}">
+                    <h3>${recipe.name}</h3>
+                    <p>${recipe.desc}</p>
+                `;
+                recipeList.appendChild(recipeItem);
+            });
+        });
+
+    </script>
     <!-- Link JavaScript File -->
-    <script src="script.js"></script>
+    <script src="static 'script.js"></script>
 </body>
 </html>
