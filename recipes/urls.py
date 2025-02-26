@@ -1,3 +1,4 @@
+from django.contrib import admin
 from django.urls import path, include
 from . import views
 from .views import register
@@ -11,6 +12,7 @@ urlpatterns = [
     path('recipe/create/', views.recipe_create, name='recipe_create'),
     
     path('admin/', admin.site.urls),
+    
     path('recipes/', include('recipes.urls')),
 
     # URL for displaying a specific recipe and its comments
