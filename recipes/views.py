@@ -4,10 +4,15 @@ from .forms import RecipeForm, CommentForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.contrib.auth.forms import UserCreationForm
 
 def index(request):
     recipes = Recipe.objects.all()  # Retrieve all recipes from the database
     return render(request, 'index.html', {'recipes': recipes})
+
+def menu_view(request):
+    recipes = Recipe.objects.all()
+    return render(request, 'menu.html', {'recipes': recipes})
 
 @login_required
 def recipe_list(request):
@@ -75,3 +80,6 @@ def register(request):
             messages.error(request, "Passwords do not match!")
 
     return render(request, "register.html")
+
+def register_user(request):
+    return render(request, 'authenticate/register.html', {})

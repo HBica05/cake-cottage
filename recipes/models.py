@@ -11,6 +11,12 @@ class Recipe(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    category = models.CharField(max_length=50, choices=[
+        ('cake', 'Cake'),
+        ('pastry', 'Pastry'),
+        ('bread', 'Bread')
+    ])    
+
     def __str__(self):
         return self.title
 

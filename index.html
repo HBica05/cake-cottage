@@ -9,9 +9,9 @@
     <meta property="og:image" content="assets/img/cake.jpeg">
     <meta property="og:url" content="https://yourwebsite.com">
     <script src="https://kit.fontawesome.com/b365637acf.js" crossorigin="anonymous"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Comic+Sans+MS&display=swap" rel="stylesheet">
-    <title>Cake Cottage</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/index.css">
+    <title>The Little Cottage</title>
 </head>
 <body>
 
@@ -20,44 +20,36 @@
         <div class="container">
             <h1><i class="fa-solid fa-wheat-awn"></i> Little Cottage</h1>
             <nav>
-                <div class="menu-icon" id="menu-icon" aria-label="Toggle navigation menu">
+                <div class="menu-icon" id="menu-icon">
                     <i class="fas fa-bars"></i>
                 </div>
-                <ul id="nav-links" aria-label="Main navigation links">
-                    <li><a href="#">Home</a></li>
+                <ul id="nav-links">
+                    <li><a href="index.html">Home</a></li>
                     <li><a href="#about">About Us</a></li>
                     <li><a href="#contact">Contact</a></li>
-                    <!-- Dropdown Menu for Products -->
+                    <li><a href="register.html">Register</a></li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" id="productsDropdown" aria-haspopup="true" aria-expanded="false">Products</a>
+                        <a href="#" class="dropdown-toggle" id="productsDropdown" role="button" aria-haspopup="true" aria-expanded="false">Products</a>
                         <ul class="dropdown-menu" aria-labelledby="productsDropdown">
-                            <li><a href="#cakes">Cakes</a></li>
-                            <li><a href="#pastries">Pastries</a></li>
-                            <li><a href="#breads">Breads</a></li>
+                            <li><a href="menu.html#cakes">Cakes</a></li>
+                            <li><a href="menu.html#pastries">Pastries</a></li>
+                            <li><a href="menu.html#breads">Breads</a></li>
                         </ul>
                     </li>
                 </ul>
             </nav>
         </div>
     </header>
-    
-    <!-- Hero Section with Banner -->
+
+    <!-- Hero Section -->
     <section class="hero">
+        <div class="opaque-overlay"></div>
         <div class="hero-content">
-            <h2>Freshly Baked Goodness Every Day</h2>
-            <p>Explore our delicious assortment of breads, cakes, and pastries!</p>
-            <a href="menu.html" class="btn">Browse Our Menu</a>
+            <h1>Artisan Bakery</h1>
+            <p>Step into a world of extraordinary flavors and family traditions.</p>
+            <a href="menu.html" class="btn">Explore</a>
         </div>
     </section>
-
-    <main>
-        <section class="recipes">
-            <h2>Latest Recipes</h2>
-            <div class="recipe-list">
-                <!-- Recipes will be dynamically loaded here -->
-            </div>
-        </section>
-    </main>
 
     <!-- Featured Products Section -->
     <section id="products" class="products">
@@ -69,7 +61,6 @@
                     <h3>Fresh Bread</h3>
                     <p>A delicious variety of freshly baked breads.</p>
                 </div>
-
                 <div class="product">
                     <img src="assets/img/cakes.jpeg" alt="Chocolate Cake" loading="lazy">
                     <h3>Cakes</h3>
@@ -82,21 +73,14 @@
                 </div>
             </div>
         </div>
-    </section>    
+    </section>
 
     <!-- About Us Section -->
     <section id="about" class="about">
         <div class="container">
             <h2>About Us</h2>
-            <p>From the moment I could hold a whisk, I have been enchanted by the art of baking.
-                For almost 8 years, I've been crafting sweet and savory delights, pouring my heart 
-                and soul into every recipe. What started as a childhood passion has blossomed into a
-                lifelong love affair with flavors and creativity.</p>
-            <p>At Little Cake Cottage, I believe in more than just baking—it's about creating magical 
-                experiences through every bite. Each cake, pastry, and loaf is made with the finest 
-                ingredients and a sprinkle of love, designed to bring joy and evoke memories. My goal 
-                is to share the magic of flavors, inspire smiles, and spread the love of baking with every 
-                customer that walks through our doors.</p>    
+            <p>From the moment I could hold a whisk, I have been enchanted by the art of baking. For almost 8 years, I've been crafting sweet and savory delights, pouring my heart and soul into every recipe.</p>
+            <p>At Little Cake Cottage, I believe in more than just baking—it's about creating magical experiences through every bite. Each cake, pastry, and loaf is made with the finest ingredients and a sprinkle of love.</p>
         </div>
     </section>
 
@@ -105,79 +89,48 @@
         <div class="container">
             <h2><i class="fa-solid fa-phone"></i> Contact Us</h2>
             <p>If you have any questions or would like to place an order, feel free to reach out!</p>
-            
-            <!-- Contact Form -->
-            <form action="#" method="post" aria-labelledby="contact-form">
+            <form action="#" method="post">
                 <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required aria-required="true">
-
+                <input type="text" id="name" name="name" required>
                 <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required aria-required="true">
-
+                <input type="email" id="email" name="email" required>
                 <label for="message">Message:</label>
-                <textarea id="message" name="message" rows="4" required aria-required="true"></textarea>
-
+                <textarea id="message" name="message" rows="4" required></textarea>
                 <button type="submit" class="btn">Send Message</button>
             </form>
- 
-            <!-- Email Link below the contact form -->
-            <p class="email-text">Or you can email us directly at: 
-            <br><a href="mailto:bicahaadiyah@gmail.com">bicahaadiyah@gmail.com</a></p>
-
+            <p class="email-text">Or email us directly at: <a href="mailto:bicahaadiyah@gmail.com">bicahaadiyah@gmail.com</a></p>
         </div>
     </section>
 
-    <!-- Footer Section -->
+    <!-- Footer -->
     <footer>
         <div class="container">
             <p>&copy; 2025 Little Cake Cottage | All Rights Reserved</p>
         </div>
-    </footer>    
-    
-    <!-- JavaScript for Hamburger Menu -->
+    </footer>
+
+    <!-- JavaScript for Dropdown -->
     <script>
         const menuIcon = document.getElementById("menu-icon");
         const navLinks = document.getElementById("nav-links");
+        const dropdownToggle = document.querySelector(".dropdown-toggle");
+        const dropdownMenu = document.querySelector(".dropdown-menu");
 
         menuIcon.addEventListener("click", () => {
-            const isExpanded = navLinks.classList.toggle("active");
-            menuIcon.setAttribute("aria-expanded", isExpanded);
+            navLinks.classList.toggle("active");
         });
 
-        document.querySelectorAll("#nav-links a").forEach(item => {
-            item.addEventListener("click", () => {
-                navLinks.classList.remove("active");
-                menuIcon.setAttribute("aria-expanded", false);
-            });
+        dropdownToggle.addEventListener("click", (e) => {
+            e.preventDefault();
+            dropdownMenu.classList.toggle("show");
+        });
+
+        document.addEventListener("click", (e) => {
+            if (!e.target.closest(".dropdown")) {
+                dropdownMenu.classList.remove("show");
+            }
         });
     </script>
 
-    <!--// This script dynamically adds recipe items to the `.recipe-list` container.  
-    // It creates recipe elements from the `recipes` array and appends them to the page.-->   
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const recipeList = document.querySelector(".recipe-list");
-
-            const recipes = [
-                { name: "Chocolate Cake", img: "assets/img/choco_cake.jpg", desc: "A rich chocolate delight!" },
-                { name: "Croissant", img: "assets/img/croissant.jpg", desc: "A buttery, flaky pastry." },
-                { name: "Sourdough Bread", img: "assets/img/sourdough.jpg", desc: "A crusty, tangy bread." }
-            ];
-
-            recipes.forEach(recipe => {
-                const recipeItem = document.createElement("div");
-                recipeItem.classList.add("recipe-item");
-                recipeItem.innerHTML = `
-                    <img src="${recipe.img}" alt="${recipe.name}">
-                    <h3>${recipe.name}</h3>
-                    <p>${recipe.desc}</p>
-                `;
-                recipeList.appendChild(recipeItem);
-            });
-        });
-
-    </script>
-    <!-- Link JavaScript File -->
-    <script src="static 'script.js"></script>
 </body>
 </html>

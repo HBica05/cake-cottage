@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Recipe, Comment  # Import your models
+from .models import Recipe, Comment
 
 # Customizing the Recipe Admin
 @admin.register(Recipe)

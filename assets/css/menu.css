@@ -13,6 +13,7 @@ body {
     background-position: center;
     background-attachment: fixed;
     background-size: cover;
+    color: #333;
 }
 
 /* Heading Styling */
@@ -26,7 +27,7 @@ h1, h2, h3 {
 header {
     background-color: rgba(255, 194, 209, 0.4);
     padding: 20px 0;
-    top: 0;
+    width: 100%;
     z-index: 100;
 }
 
@@ -35,39 +36,31 @@ header .container {
     max-width: 1200px;
     margin: 0 auto;
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
-    gap: 20px;
 }
 
 header h1 {
-    font-size: 4rem;
+    font-size: 3rem;
     font-weight: bold;
-    letter-spacing: 2px;
     color: #d27d5f;
-    font-family: 'Georgia', 'Times New Roman', serif;
 }
 
-header nav ul {
+nav ul {
     list-style: none;
     display: flex;
     gap: 20px;
 }
 
-header nav ul li {
-    font-size: 1.2rem;
-}
-
-header nav ul li a {
+nav ul li a {
     text-decoration: none;
-    color: #302f2f;
-    font-weight: 500;
-    text-transform: uppercase;
+    color: #fff;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
 }
 
-header nav ul li a:hover {
-    color: #d27d5f;
-    text-decoration: underline;
+nav ul li a:hover {
+    color: #ffccbc;
 }
 
 .menu-icon {
@@ -102,6 +95,11 @@ header nav ul li a:hover {
     width: 30%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.menu-item:hover {
+    transform: translateY(-10px);
 }
 
 .menu-item img {
@@ -128,21 +126,37 @@ header nav ul li a:hover {
     color: #b55d42;
 }
 
-/* Footer */
-footer {
-    background-color: #f1c0b9;
-    padding: 20px 0;
-    text-align: center;
+/* Dropdown menu */
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background: white;
+    list-style: none;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-footer p {
-    color: #fff;
-    font-size: 1rem;
+.dropdown:hover .dropdown-menu {
+    display: block;
 }
 
-/* Mobile Responsiveness */
+.dropdown-menu a {
+    color: #d27d5f !important;
+    padding: 10px 15px;
+    display: block;
+    text-decoration: none;
+}
+.dropdown-menu a:hover {
+    background-color: #f8f8f8;
+    color: #b55d42 !important;
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
-    /* Navigation Menu for Small Screens */
+    .menu-icon {
+        display: block;
+    }
+
     #nav-links {
         display: none;
         width: 100%;
@@ -154,35 +168,27 @@ footer p {
         padding: 20px 0;
     }
 
-    .menu-icon {
+    #nav-links.active {
         display: block;
     }
 
-    header nav ul {
+    nav ul {
         flex-direction: column;
     }
 
     .menu-item {
-        width: 45%;
-    }
-
-    .menu-list {
-        justify-content: center;
-    }
-
-    .menu-item img {
-        height: 200px;
+        width: 80%;
     }
 }
 
 /* Extra small screens */
 @media (max-width: 480px) {
     header h1 {
-        font-size: 1.8rem;
+        font-size: 2rem;
     }
 
     .menu-item {
-        width: 90%;
+        width: 100%;
     }
 
     .menu-item img {
@@ -198,12 +204,7 @@ footer p {
     }
 }
 
-.product {
-    /* Basic product styling */
-    margin-bottom: 30px;
-    text-align: center;
-}
-
+/* Product Interaction */
 .view-recipe-btn, .like-btn, .submit-comment {
     background-color: #d27d5f;
     color: white;
@@ -211,6 +212,7 @@ footer p {
     border: none;
     cursor: pointer;
     margin: 10px 0;
+    transition: background-color 0.3s ease;
 }
 
 .view-recipe-btn:hover, .like-btn:hover, .submit-comment:hover {
@@ -238,4 +240,30 @@ textarea.comment-input {
     border: 1px solid #ccc;
     border-radius: 5px;
     margin-bottom: 10px;
+}
+
+/* Footer */
+footer {
+    background-color: #d27d5f;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.recipe-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 10px;
+    background-color: #d27d5f;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.recipe-btn:hover {
+    background-color: #b55d42;
 }
