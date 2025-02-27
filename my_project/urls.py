@@ -1,7 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include  #  Ensure 'include' is imported
 from recipes import views  #  Import views from the 'recipes' app
-from recipes.views import register  #  Import 'register' function correctly
 
 urlpatterns = [
     path('admin/', admin.site.urls),
