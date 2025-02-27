@@ -5,6 +5,7 @@ from . import views
 from .views import register
 
 urlpatterns = [
+    path('', views.some_view, name='some_view'),
     path('admin/', admin.site.urls),
     path('', views.recipe_list, name='recipe_list'),
     path('login/', views.login_view, name='login'),
