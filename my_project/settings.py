@@ -18,13 +18,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # add the SECRET_KEY into config variables inside heroku
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = os.environ.get('SECRET_KEY', 'YfcIiG3XQQiUV9S1iISd_aJZt_ceNUXpV03oNid9M-mGCIPwGjCmIVxjaNlfzoSowbc')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', 'FALSE') == 'FALSE'
+# DEBUG = os.environ.get('DEBUG', 'TRUE') == 'TRUE'
 
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'cake-cottage-app.herokuapp.com').split(',')
-
+# ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'cake-cottage-app.herokuapp.com').split(',')
+DEBUG = True
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -73,7 +74,7 @@ WSGI_APPLICATION = 'my_project.wsgi.application'
 # Database
 
 DATABASES = {
-    'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
+    'default': dj_database_url.config(default='sqlite:///db.sqlite3')
 
 }
 
