@@ -23,7 +23,10 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'YfcIiG3XQQiUV9S1iISd_aJZt_ceNUXpV03oN
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', 'TRUE') == 'TRUE'
 
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'cake-cottage-app.herokuapp.com').split(',')
+ALLOWED_HOSTS = [
+    "cake-cottage-app-6b5965171ab1.herokuapp.com",
+    "www.cake-cottage-app-6b5965171ab1.herokuapp.com",
+]
 
 
 # Application definition
