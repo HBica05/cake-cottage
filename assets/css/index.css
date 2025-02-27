@@ -15,6 +15,11 @@ body {
     font-family: 'Roboto', sans-serif;
     color: #333;
 }
+.container{
+    color: #333;
+    position: relative;
+}
+
 
 .opaque-overlay {
     position: absolute;
@@ -36,6 +41,8 @@ h1, h2, h3 {
 header {
     background-color: rgba(255, 194, 209, 0.4);
     padding: 20px 0;
+    text-align: center;
+    font-size: 26px;
     width: 100%;
     z-index: 100;
 }
@@ -53,12 +60,20 @@ header h1 {
     font-size: 3rem;
     font-weight: bold;
     color: #d27d5f;
+    letter-spacing: 1px;
+}
+
+nav {
+    padding: 12px 0;
+    text-align: center;
 }
 
 nav ul {
     list-style: none;
     display: flex;
     gap: 20px;
+    padding: 0;
+    margin: 0;
 }
 
 nav ul li {

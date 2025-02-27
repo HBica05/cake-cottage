@@ -1,17 +1,25 @@
-body {
-    font-family: Arial, sans-serif;
-    background-image: url('../img/old_paper.jpg');
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+/* General Reset */
+* {
     margin: 0;
-    font-family: 'Roboto', 'Arial', sans-serif;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body Background */
+body {
+    background-image: url('../img/old_paper.jpg');
     background-repeat: no-repeat;
     background-position: center;
     background-attachment: fixed;
     background-size: cover;
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
+
+/* Dark Overlay */
 .opaque-overlay {
     position: absolute;
     top: 0;
@@ -21,17 +29,94 @@ body {
     background-color: rgba(0, 0, 0, 0.6);
 }
 
-.container {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+/* Header */
+header {
+    background-color: rgba(255, 194, 209, 0.8);
+    padding: 20px 0;
     text-align: center;
-    width: 350px;
+    position: relative;
+    width: 100%;
+    z-index: 1000;
 }
 
+header h1 {
+    font-size: 2.5rem;
+    font-family: 'Playfair Display', serif;
+    color: #d27d5f;
+}
+
+/* Navigation */
+nav {
+    text-align: center;
+    margin-top: 10px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 0;
+}
+
+nav ul li {
+    position: relative;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #5d3a29;
+    font-size: 1.2rem;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+nav ul li a:hover, nav ul li a.active {
+    color: #d27d5f;
+}
+
+/* Mobile Menu */
+.menu-icon {
+    display: none;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+/* Register Section */
+.register-section {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Register Box */
+.register-box {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+    z-index: 2;
+}
+
+/* Register Form */
 h2 {
-    color: #d35400;
+    font-size: 2rem;
+    font-family: 'Playfair Display', serif;
+    color: #d27d5f;
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 20px;
 }
 
 input {
@@ -40,18 +125,33 @@ input {
     margin: 10px 0;
     border: 1px solid #ccc;
     border-radius: 5px;
+    font-size: 1rem;
 }
 
 button {
-    background-color: #d35400;
-    color: white;
-    padding: 10px;
+    width: 100%;
+    padding: 12px;
     border: none;
     border-radius: 5px;
+    font-size: 1.2rem;
+    background-color: #d27d5f;
+    color: white;
     cursor: pointer;
-    width: 100%;
+    transition: background-color 0.3s ease;
 }
 
 button:hover {
-    background-color: #a04000;
+    background-color: #b55d42;
+}
+
+/* Footer Fixed at Bottom */
+footer {
+    background-color: #d27d5f;
+    color: white;
+    padding: 15px 0;
+    text-align: center;
+    width: 100%;
+    position: relative;
+    bottom: 0;
+    margin-top: auto;
 }
