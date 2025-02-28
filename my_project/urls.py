@@ -3,10 +3,11 @@ from django.urls import path, include  #  Ensure 'include' is imported
 from recipes import views  #  Import views from the 'recipes' app
 
 urlpatterns = [
+    path('accounts/',include('django.contrib.auth.urls')),
     path('admin/', admin.site.urls),
     path('', views.recipe_list, name='recipe_list'),  # ✅ Use views from 'recipes'
     path('login/', views.login_view, name='login'),
-     path('logout/', views.logout_view, name='logout'),  # ✅ Logout added
+    path('logout/', views.logout_view, name='logout'),  # ✅ Logout added
     path('signup/', views.register, name='signup'),
     path('recipe/create/', views.recipe_create, name='recipe_create'),
 

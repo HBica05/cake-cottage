@@ -1,0 +1,107 @@
+{% extends 'recipes/base.html' %}
+{% load static %}
+
+{% block title %}Welcome to Little Cake Cottage{% endblock title %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="opaque-overlay"></div>
+        <div class="hero-content text-center">
+            <h1>Artisan Bakery</h1>
+            <p>Step into a world of extraordinary flavors and family traditions.</p>
+            <a href="{% url 'menu' %}" class="btn btn-primary">Explore</a>
+        </div>
+    </section>
+
+    <!-- Featured Products Section -->
+    <section id="products" class="products text-center py-5">
+        <div class="container">
+            <h2>Our Products</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="product">
+                        <img src="{% static 'img/bread.jpg' %}" alt="Fresh Bread" class="img-fluid">
+                        <h3>Fresh Bread</h3>
+                        <p>A delicious variety of freshly baked breads.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="product">
+                        <img src="{% static 'img/cakes.jpeg' %}" alt="Chocolate Cake" class="img-fluid">
+                        <h3>Cakes</h3>
+                        <p>Rich, moist cakes with a creamy frosting.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="product">
+                        <img src="{% static 'img/pastries.jpg' %}" alt="Pastry" class="img-fluid">
+                        <h3>Pastries</h3>
+                        <p>Flaky, buttery pastries perfect for any occasion.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about" class="about bg-light py-5 text-center">
+        <div class="container">
+            <h2>About Us</h2>
+            <p>From the moment I could hold a whisk, I have been enchanted by the art of baking. For almost 8 years, I've been crafting sweet and savory delights, pouring my heart and soul into every recipe.</p>
+            <p>At Little Cake Cottage, I believe in more than just baking—it's about creating magical experiences through every bite. Each cake, pastry, and loaf is made with the finest ingredients and a sprinkle of love.</p>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact py-5 text-center">
+        <div class="container">
+            <h2><i class="fa-solid fa-phone"></i> Contact Us</h2>
+            <p>If you have any questions or would like to place an order, feel free to reach out!</p>
+            <form action="#" method="post" class="contact-form mx-auto">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" class="form-control" placeholder="Your Name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" class="form-control" placeholder="Your Email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message:</label>
+                    <textarea id="message" name="message" class="form-control" rows="4" placeholder="Your Message" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Send Message</button>
+            </form>
+            <p class="email-text mt-3">Or email us directly at: <a href="mailto:bicahaadiyah@gmail.com">bicahaadiyah@gmail.com</a></p>
+        </div>
+    </section>
+{% endblock content %}
+
+{% block extra_js %}
+    <script>
+        const menuIcon = document.getElementById("menu-icon");
+        const navLinks = document.getElementById("nav-links");
+        const dropdownToggle = document.querySelector(".dropdown-toggle");
+        const dropdownMenu = document.querySelector(".dropdown-menu");
+
+        menuIcon.addEventListener("click", () => {
+            navLinks.classList.toggle("active");
+        });
+
+        dropdownToggle.addEventListener("click", (e) => {
+            e.preventDefault();
+            dropdownMenu.classList.toggle("show");
+        });
+
+        document.addEventListener("click", (e) => {
+            if (!e.target.closest(".dropdown")) {
+                dropdownMenu.classList.remove("show");
+            }
+        });
+    </script>
+{% endblock extra_js %}

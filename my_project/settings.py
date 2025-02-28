@@ -11,7 +11,7 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+TEMPLATES_DIR = os.path.join(BASE_DIR, 'TEMPLATES')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -26,6 +26,8 @@ DEBUG = os.environ.get('DEBUG', 'TRUE') == 'TRUE'
 ALLOWED_HOSTS = [
     "cake-cottage-app-6b5965171ab1.herokuapp.com",
     "www.cake-cottage-app-6b5965171ab1.herokuapp.com",
+    "127.0.0.1",
+    'localhost'
 ]
 
 
@@ -57,7 +59,7 @@ ROOT_URLCONF = 'my_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [BASE_DIR / "templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -114,9 +116,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    BASE_DIR / 'assets',  # Assuming your 'assets' folder is at the project root
+    BASE_DIR / 'staticfiles',  # folder at the project root
 ]
-STATIC_ROOT = BASE_DIR / 'staticfiles'  # For collecting static files in production
+STATIC_ROOT = BASE_DIR / 'static'  # For collecting static files in production
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
