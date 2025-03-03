@@ -8,9 +8,6 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
     <title>Browse Our Menu - The Little Cake Cottage</title>
     <link rel="stylesheet" href="assets/css/menu.css">
-    <style>
-       
-    </style>
 </head>
 <body>
 
@@ -23,16 +20,17 @@
                     <i class="fas fa-bars"></i>
                 </div>
                 <ul id="nav-links">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="index.html#about">About Us</a></li>
-                    <li><a href="index.html#contact">Contact</a></li>
-                    <li><a href="register.html#register">Register</a></li>
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li><a href="{% url 'about' %}">About Us</a></li>
+                    <li><a href="{% url 'contact' %}">Contact</a></li>
+                    <li><a href="{% url 'signup' %}">Register</a></li>
+                    <li><a href="{% url 'menu' %}">Menu</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" id="productsDropdown" role="button" aria-haspopup="true" aria-expanded="false">Products</a>
                         <ul class="dropdown-menu" aria-labelledby="productsDropdown">
-                            <li><a href="#cakes">Cakes</a></li>
-                            <li><a href="#pastries">Pastries</a></li>
-                            <li><a href="#breads">Breads</a></li>
+                            <li><a class="dropdown-item" href="{% url 'menu_view' %}#cakes">Cakes</a></li>
+                            <li><a class="dropdown-item" href="{% url 'menu_view' %}#pastries">Pastries</a></li>
+                            <li><a class="dropdown-item" href="{% url 'menu_view' %}#breads">Breads</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -53,19 +51,19 @@
                         <img src="assets/img/choco_cake.jpg" alt="Chocolate Cake">
                         <h3>Chocolate Cake</h3>
                         <p>Rich, moist chocolate cake with creamy frosting.</p>
-                        <button class="recipe-btn" onclick="viewRecipe('Chocolate Cake')">View Recipe</button>
+                        <button class="recipe-btn" onclick="viewRecipe('Chocolate Cake', 'A rich and moist chocolate cake recipe...')">View Recipe</button>
                     </div>
                     <div class="menu-item">
                         <img src="assets/img/vanilla-cake.jpg" alt="Vanilla Cake">
                         <h3>Vanilla Cake</h3>
                         <p>Fluffy vanilla cake with smooth buttercream frosting.</p>
-                        <button class="recipe-btn" onclick="viewRecipe('Vanilla Cake')">View Recipe</button>
+                        <button class="recipe-btn" onclick="viewRecipe('Vanilla Cake', 'Classic vanilla cake recipe with buttercream...')">View Recipe</button>
                     </div>
                     <div class="menu-item">
                         <img src="assets/img/red-velvet.jpg" alt="Red Velvet Cake">
                         <h3>Red Velvet Cake</h3>
                         <p>Classic red velvet cake with cream cheese frosting.</p>
-                        <button class="recipe-btn" onclick="viewRecipe('Red Velvet Cake')">View Recipe</button>
+                        <button class="recipe-btn" onclick="viewRecipe('Red Velvet Cake', 'Delicious red velvet cake with cream cheese frosting...')">View Recipe</button>
                     </div>
                 </div>
             </div>
@@ -78,50 +76,32 @@
                         <img src="assets/img/croissant.jpg" alt="Butter Croissant">
                         <h3>Butter Croissant</h3>
                         <p>Golden, flaky croissants made with the finest butter.</p>
-                        <button class="recipe-btn" onclick="viewRecipe('Butter Croissant')">View Recipe</button>
+                        <button class="recipe-btn" onclick="viewRecipe('Butter Croissant', 'Traditional French butter croissant recipe...')">View Recipe</button>
                     </div>
                     <div class="menu-item">
                         <img src="assets/img/fruit-tart.jpg" alt="Fruit Tart">
                         <h3>Fruit Tart</h3>
                         <p>Fresh seasonal fruits on a creamy custard-filled tart.</p>
-                        <button class="recipe-btn" onclick="viewRecipe('Fruit Tart')">View Recipe</button>
+                        <button class="recipe-btn" onclick="viewRecipe('Fruit Tart', 'Tart filled with custard and fresh fruits...')">View Recipe</button>
                     </div>
                     <div class="menu-item">
                         <img src="assets/img/apple_pie.jpg" alt="Apple Pie">
                         <h3>Apple Pie</h3>
                         <p>Classic apple pie with a buttery, flaky crust.</p>
-                        <button class="recipe-btn" onclick="viewRecipe('Apple Pie')">View Recipe</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Breads Section -->
-            <div id="breads" class="menu-category">
-                <h2>Breads</h2>
-                <div class="menu-list">
-                    <div class="menu-item">
-                        <img src="assets/img/sourdough.jpg" alt="Sourdough Bread">
-                        <h3>Sourdough Bread</h3>
-                        <p>Crisp crust with a soft, tangy center.</p>
-                        <button class="recipe-btn" onclick="viewRecipe('Sourdough Bread')">View Recipe</button>
-                    </div>
-                    <div class="menu-item">
-                        <img src="assets/img/ciabatta.jpeg" alt="Ciabatta Bread">
-                        <h3>Ciabatta Bread</h3>
-                        <p>Light and airy Italian bread with a golden, crispy crust.</p>
-                        <button class="recipe-btn" onclick="viewRecipe('Ciabatta Bread')">View Recipe</button>
-                    </div>
-                    <div class="menu-item">
-                        <img src="assets/img/focaccia.jpeg" alt="Focaccia Bread">
-                        <h3>Focaccia Bread</h3>
-                        <p>Herb-infused flatbread with a soft, fluffy interior.</p>
-                        <button class="recipe-btn" onclick="viewRecipe('Focaccia Bread')">View Recipe</button>
+                        <button class="recipe-btn" onclick="viewRecipe('Apple Pie', 'The best homemade apple pie recipe...')">View Recipe</button>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    
+
+    <!-- Recipe Display Section -->
+    <section id="recipe-display" class="recipe-display">
+        <div class="container">
+            <h2 id="recipe-title"></h2>
+            <p id="recipe-description"></p>
+        </div>
+    </section>
 
     <!-- Footer -->
     <footer>
@@ -151,13 +131,14 @@
                 dropdownMenu.classList.remove("show");
             }
         });
-    </script>
 
-<!--Button for view recipe-->
-    <script>
-        function viewRecipe(productName) {
-            alert('Showing recipe for: ' + productName);
-            // You can replace the alert with a redirect to the recipe page or modal popup.
+        // Function to display recipe without leaving the page
+        function viewRecipe(title, description) {
+            document.getElementById("recipe-title").textContent = title;
+            document.getElementById("recipe-description").textContent = description;
+
+            // Smooth scroll to the recipe display section
+            document.getElementById("recipe-display").scrollIntoView({ behavior: 'smooth' });
         }
     </script>
 

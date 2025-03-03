@@ -12,9 +12,10 @@
     <header>
         <h1>Welcome to the Bakery!</h1>
         <nav>
-            <a href="{% url 'recipe_create' %}">Create Recipe</a>
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'recipe_list' %}">Recipes</a>
             <a href="{% url 'login' %}">Login</a>
-            <a href="{% url 'signup' %}">Sign Up</a>
+            <a href="{% url 'signup' %}">Sign Up</a>            
         </nav>
     </header>
 
