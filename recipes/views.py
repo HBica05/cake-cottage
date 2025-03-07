@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Recipe, Comment
 from .forms import RecipeForm, CommentForm
@@ -14,6 +15,7 @@ from django.conf import settings
 def index(request):
     recipes = Recipe.objects.all()
     return render(request, 'recipes/index.html', {'recipes': recipes})
+    
 
 # ✅ Menu Page View
 def menu_view(request):

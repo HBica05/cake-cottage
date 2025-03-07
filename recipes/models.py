@@ -2,9 +2,15 @@ from django.db import models
 from django.utils.text import slugify
 from django.contrib.auth.models import User
 
+STATUS = ((0, "Draft"), (1, "Published"))
+
 class Recipe(models.Model):
-    title = models.CharField(max_length=200)
-    slug = models.SlugField(unique=True, blank=True, null=True)  # ✅ Added slug field
+    title = models.CharField(max_length=200, unique=True)
+    slug = models.SlugField(max_length=200, unique=True, null=True) 
+    author = models.ForeignKey(
+    User, on_delete=models.CASCADE, related_name="recipe_posts", default=1
+)
+    content = models.TextField(default="No content provided")
     image = models.ImageField(upload_to='recipes/')  
     description = models.TextField()
     ingredients = models.TextField()
@@ -12,6 +18,7 @@ class Recipe(models.Model):
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    status = models.IntegerField(choices=STATUS, default=0)
 
     category = models.CharField(max_length=50, choices=[
         ('cake', 'Cake'),
