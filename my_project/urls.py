@@ -1,9 +1,11 @@
 from django.contrib import admin
 from django.urls import path, include
-from recipes import views  
+from recipes import views 
+from about import views as about_views 
 
 urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
+    path('about/', about_views.about_me, name='about'),
     path('admin/', admin.site.urls),
 
     # Main Pages

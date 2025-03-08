@@ -13,9 +13,12 @@ from django.conf import settings
 
 # ✅ Home Page View
 def index(request):
-    recipes = Recipe.objects.all()
-    return render(request, 'recipes/index.html', {'recipes': recipes})
-    
+    # recipes = Recipe.objects.all()
+    # return render(request, 'recipes/index.html', {'recipes': recipes})
+        if request.method == "POST":
+            return HttpResponse("You must have POSTed something")
+        else:
+            return HttpResponse(request.method)
 
 # ✅ Menu Page View
 def menu_view(request):
