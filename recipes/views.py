@@ -10,6 +10,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.core.mail import send_mail 
 from django.conf import settings 
 
+def my_recipes(request):
+    return HttpResponse("Hello!")
 
 # ✅ Home Page View
 def index(request):

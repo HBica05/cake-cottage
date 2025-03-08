@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.urls import path, include
 from recipes import views 
 from about import views as about_views 
+from recipes.views import my_recipes
 
 urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
@@ -13,14 +14,14 @@ urlpatterns = [
     path('menu/', views.menu_view, name='menu'), 
     path('about/', views.about_view, name='about'),
     path('contact/', views.contact_view, name='contact'),
-
     # Authentication
     path('login/', views.login_view, name='login'),
     path('logout/', views.logout_view, name='logout'),
     path('signup/', views.register, name='signup'),
 
     # Recipes (Includes the separate recipes.urls)
-    path('recipes/', include('recipes.urls')),
+    # path('recipes/', include('recipes.urls')),
+    path('recipes/', my_recipes, name='recipes'),
 
     # Recipe & Comment Management
     path('recipe/create/', views.recipe_create, name='recipe_create'),
