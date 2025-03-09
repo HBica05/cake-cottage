@@ -8,7 +8,7 @@ class Recipe(models.Model):
     title = models.CharField(max_length=200, unique=True)
     slug = models.SlugField(max_length=200, unique=True, null=True) 
     author = models.ForeignKey(
-    User, on_delete=models.CASCADE, related_name="recipe_posts", default=1
+    User, on_delete=models.CASCADE, related_name="recipe_posts"
 )
     content = models.TextField(default="No content provided")
     image = models.ImageField(upload_to='recipes/')  
@@ -19,7 +19,7 @@ class Recipe(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     status = models.IntegerField(choices=STATUS, default=0)
-
+    excerpt = models.TextField(blank=True)
     category = models.CharField(max_length=50, choices=[
         ('cake', 'Cake'),
         ('pastry', 'Pastry'),
