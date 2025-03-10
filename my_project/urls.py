@@ -2,12 +2,12 @@ from django.contrib import admin
 from django.urls import path, include
 from recipes import views 
 from about import views as about_views 
-from recipes.views import my_recipes
 
 urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('about/', about_views.about_me, name='about'),
     path('admin/', admin.site.urls),
+    path('recipes/', include('recipes.urls')), 
 
     # Main Pages
     path('', views.index, name='home'),
@@ -19,9 +19,6 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout'),
     path('signup/', views.register, name='signup'),
 
-    # Recipes (Includes the separate recipes.urls)
-    # path('recipes/', include('recipes.urls')),
-    path('recipes/', my_recipes, name='recipes'),
 
     # Recipe & Comment Management
     path('recipe/create/', views.recipe_create, name='recipe_create'),

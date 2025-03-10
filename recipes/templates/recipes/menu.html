@@ -1,14 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-    <script src="https://kit.fontawesome.com/b365637acf.js" crossorigin="anonymous"></script>
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
-    <title>Browse Our Menu - The Little Cake Cottage</title>
-    <link rel="stylesheet" href="assets/css/menu.css">
-</head>
+{% extends 'base.html' %}
+
+{% block title %}Browse Our Menu - The Little Cake Cottage{% endblock title %}
+
+{% block content %}
+
 <body>
 
     <!-- Navigation Bar -->
@@ -103,12 +98,6 @@
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 The Little Cake Cottage | All Rights Reserved</p>
-        </div>
-    </footer>
 
     <!-- JavaScript -->
     <script>
@@ -144,3 +133,4 @@
 
 </body>
 </html>
+{% endblock content %}

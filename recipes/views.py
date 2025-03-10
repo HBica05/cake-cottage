@@ -9,43 +9,50 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout  
 from django.core.mail import send_mail 
 from django.conf import settings 
+from django.views import generic
 
-def my_recipes(request):
-    return HttpResponse("Hello!")
 
-# ✅ Home Page View
+# ✅ Recipe List View (Class-Based)
+class RecipeList(generic.ListView):
+    queryset = Recipe.objects.filter(status=1)
+    template_name = "recipes/recipe_list.html"
+    paginate_by = 6
+
+
+# ✅ Recipe List View (Function-Based, if preferred)
+def recipe_list(request):
+    recipes = Recipe.objects.filter(status=1)
+    return render(request, "recipes/recipe_list.html", {"recipes": recipes})
+
+
+# ✅ Home Page View (Redirecting to Recipe List)
 def index(request):
-    # recipes = Recipe.objects.all()
-    # return render(request, 'recipes/index.html', {'recipes': recipes})
-        if request.method == "POST":
-            return HttpResponse("You must have POSTed something")
-        else:
-            return HttpResponse(request.method)
+    return redirect("recipe_list")
+
 
 # ✅ Menu Page View
 def menu_view(request):
     recipes = Recipe.objects.all()
     return render(request, 'recipes/menu.html', {'recipes': recipes})
 
+
 # ✅ About Page View
 def about_view(request):
     return render(request, 'recipes/about.html')
 
-# ✅ Updated Contact Page View to Handle Form Submission
+
+# ✅ Contact Page View (Handles Form Submission)
 def contact_view(request):
     if request.method == "POST":
         name = request.POST.get("name")
         email = request.POST.get("email")
         message = request.POST.get("message")
 
-        subject = f"New Contact Form Submission from {name}"
-        email_message = f"Message: {message}\n\nFrom: {name} ({email})"
-
         # Send email (Ensure email settings are configured in settings.py)
         send_mail(
             subject=f"New Contact Message from {name}",
             message=f"Message from {name} ({email}):\n\n{message}",
-            from_email=settings.DEFAULT_FROM_EMAIL,  # Ensure this is set in settings.py
+            from_email=settings.DEFAULT_FROM_EMAIL,
             recipient_list=["your-email@example.com"],  # Change this to your email
             fail_silently=False,
         )
@@ -55,11 +62,6 @@ def contact_view(request):
 
     return render(request, "recipes/contact.html")
 
-# ✅ Recipe List View
-@login_required
-def recipe_list(request):
-    recipes = Recipe.objects.all()
-    return render(request, 'recipes/recipe_list.html', {'recipes': recipes})
 
 # ✅ Recipe Detail View
 def recipe_detail(request, recipe_id):
@@ -84,6 +86,7 @@ def recipe_detail(request, recipe_id):
         'comment_form': comment_form
     })
 
+
 # ✅ Recipe Creation View
 @login_required
 def recipe_create(request):
@@ -99,6 +102,7 @@ def recipe_create(request):
         form = RecipeForm()
     
     return render(request, 'recipes/recipe_form.html', {'form': form})
+
 
 # ✅ Recipe Edit View
 @login_required
@@ -119,6 +123,7 @@ def recipe_edit(request, recipe_id):
     
     return render(request, 'recipes/recipe_form.html', {'form': form})
 
+
 # ✅ Recipe Delete View
 @login_required
 def recipe_delete(request, recipe_id):
@@ -129,6 +134,7 @@ def recipe_delete(request, recipe_id):
     else:
         messages.error(request, "You are not authorized to delete this recipe.")
     return redirect('recipe_list')
+
 
 # ✅ Add Comment View
 @login_required
@@ -150,6 +156,7 @@ def add_comment(request, recipe_id):
 
     return render(request, 'comments/add_comment.html', {'form': form, 'recipe': recipe})
 
+
 # ✅ Edit Comment View
 @login_required
 def edit_comment(request, comment_id):
@@ -168,6 +175,7 @@ def edit_comment(request, comment_id):
     
     return render(request, 'comments/edit_comment.html', {'form': form})
 
+
 # ✅ Delete Comment View
 @login_required
 def delete_comment(request, comment_id):
@@ -177,7 +185,8 @@ def delete_comment(request, comment_id):
         messages.success(request, "Comment deleted successfully! 🗑️")
     return redirect('recipe_detail', recipe_id=comment.recipe.id)
 
-# ✅ User Registration View (Fixed Redirect)
+
+# ✅ User Registration View
 def register(request):
     if request.method == "POST":
         form = UserCreationForm(request.POST)
@@ -185,11 +194,12 @@ def register(request):
             user = form.save()
             login(request, user)  # Auto-login after signup
             messages.success(request, "Account created successfully! 🎉")
-            return redirect("home")  # ✅ Fixed redirect
+            return redirect("home")
     else:
         form = UserCreationForm()
     
     return render(request, "recipes/register.html", {'form': form})
+
 
 # ✅ User Login View
 def login_view(request):
@@ -206,9 +216,10 @@ def login_view(request):
 
     return render(request, "recipes/login.html")  
 
+
 # ✅ User Logout View
 @login_required
 def logout_view(request):
     logout(request)
     messages.success(request, "Logged out successfully! 👋")
-    return redirect("login")  
+    return redirect("login")
