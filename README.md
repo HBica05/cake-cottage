@@ -1,27 +1,46 @@
 # 🍰 Cake Cottage
-Welcome to Cake Cottage corner, your online book of delightful recipes! Whether you're a passionate home baker or a curious foodie, our platform allows you to explore, create, and share your favorite baked goods.
+Welcome to Cake Cottage, a community-driven platform where baking enthusiasts can share their favorite recipes, interact with fellow bakers, and discover new delights! Whether you're a professional pastry chef or a home baker looking to experiment, our website provides a space to create, publish, and engage with mouth-watering baked goods.
+
+At Cake Cottage, you can:
+
+✔️ Post your own recipes and inspire others with your culinary creations.
+
+✔️ Browse through a variety of delicious recipes from other users.
+
+✔️ Like and comment on recipes to connect with fellow bakers.
+
+✔️ Engage in discussions, ask questions, and share tips in the comment section.
+
+✔️ Discover new flavors and experiment with creative baking ideas!
 
 ## 📌 Table of Contents
 
-User Stories
-
-About the Website
-
-🚀 Features
-
-🛠 Technologies Used
-
-🔹 API Endpoints
-
-🔒 User Authentication
-
-🌍 Deployment
-
-✅ Feel Free to Explore!
-
-📌 Getting Started
-
-🤝 Contributing
+- [🍰 Cake Cottage](#-cake-cottage)
+  - [📌 Table of Contents](#-table-of-contents)
+    - [User Stories](#user-stories)
+  - [🔠 Typography](#-typography)
+  - [🔹 Existing Features](#-existing-features)
+    - [👤 User Authentication \& Profile Management](#-user-authentication--profile-management)
+    - [🍰 Recipe Management](#-recipe-management)
+    - [🎉 Community Engagement](#-community-engagement)
+- [📖 About the Website](#-about-the-website)
+  - [🚀 Features](#-features)
+  - [Features Left to Implement](#features-left-to-implement)
+  - [🛠 Technologies Used](#-technologies-used)
+    - [🖥️ Front-End Technologies](#️-front-end-technologies)
+    - [🖥️ Back-End Technologies](#️-back-end-technologies)
+    - [🚀 Deployment](#-deployment)
+  - [🔹 API Endpoints](#-api-endpoints)
+    - [📌 Recipe Endpoints](#-recipe-endpoints)
+    - [💬 Comment Endpoints](#-comment-endpoints)
+    - [❤️ Like Endpoints](#️-like-endpoints)
+  - [🔒 User Authentication](#-user-authentication)
+  - [🌍 Deployment](#-deployment-1)
+  - [✅ Feel Free to Explore!](#-feel-free-to-explore)
+- [📌 Getting Started](#-getting-started)
+  - [🏗️ Installation Guide](#️-installation-guide)
+  - [🤝 Contributing](#-contributing)
+        - [📌 Back to top](#-back-to-top)
 
 
 ### User Stories
@@ -29,17 +48,25 @@ About the Website
 
 :white_check_mark: *denotes items that have been successfully implemented*
 
-- :white_check_mark: 'register and log in, so that I can create and manage my recipes.'
-- :white_check_mark: 'create, update, and delete recipes, so that I can share and manage my recipes.'
-- :white_check_mark: 'comment on a recipe, so that I can give feedback or ask questions.'
-- :white_check_mark: 'submit, view, and comment on recipes'
-- :white_check_mark: ''
 
-"**_As the developer, I want to_"
+- :white_check_mark: Register and log in so that I can create and manage my recipes.
+- :white_check_mark: Create, update, and delete recipes so that I can share my creations.
+- :white_check_mark: Comment on recipes to give feedback, ask questions, and engage with other users.
+- :white_check_mark: Like recipes to show appreciation and keep track of my favorites.
+- :white_check_mark: View a list of all available recipes and filter them based on categories.
+- :white_check_mark: Save my favorite recipes to revisit later.
+- :white_check_mark: Easily navigate through the website with an intuitive and responsive design.
 
-- :white_check_mark: 'manage the recipes and user comments, so that I can ensure the website maintains quality content.'
-- :white_check_mark: 'optimize my website for faster loading so that users can have a better experience.'
-- :white_check_mark: 'be able to test the app and find no errors so that users can use it smoothly'
+"**_As an admin, I want to_"
+
+- :white_check_mark: **Manage the entire database**, ensuring that all user-submitted content is appropriate.
+- :white_check_mark: **Approve, edit, or delete recipes** to maintain high-quality content.
+- :white_check_mark: **Manage user accounts** by editing user details, suspending accounts, or deleting users when necessary.
+- :white_check_mark: **Monitor user interactions** such as comments and likes to maintain a positive and respectful community.
+- :white_check_mark: **Optimize website performance** to ensure fast loading times and smooth user experience.
+- :white_check_mark: **Fix and troubleshoot errors** in the system to provide a seamless experience for users.
+- :white_check_mark: **Access an admin dashboard** with tools to track site activity, user engagement, and database status.
+- :white_check_mark: **Receive notifications for reported content** to take immediate action against inappropriate recipes or comments.
 
 ## 🔠 Typography
 We have carefully selected typography that complements the aesthetic of Cake Cottage:
