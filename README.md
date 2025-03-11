@@ -139,11 +139,11 @@ We have carefully selected typography that complements the aesthetic of Cake Cot
 **Admin Superuser**
 - My ***'Admin'*** profile has several extra features, which currently include:
     - Edit / Delete any recipe from the database.
-    - View join-date / favs / recipes of all registered users. (added February 2020)
-    - Delete any registered user from the database. (added February 2020)
-    - Receive email for new recipes added or edited from database as backup in case database is lost. (added March 2020)
-    - View an interactive map of all visitors to the site. (added April 2020)
-    - View statistics of unique visitors by country, and total count. (added April 2020)
+    - View join-date / favs / recipes of all registered users. (added March 2025)
+    - Delete any registered user from the database. (added March 2025)
+    - Receive email for new recipes added or edited from database as backup in case database is lost. (added March 2025)
+    - View an interactive map of all visitors to the site. (added March 2025)
+    - View statistics of unique visitors by country, and total count. (added March 2025)
 
 # 📖 About the Website
 

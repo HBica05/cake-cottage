@@ -3,18 +3,11 @@
 {% block content %}
 
 
-<!-- Page Header -->
-<header class="masthead text-center">
-    <h1 class="mt-4">Our Delicious Recipes</h1>
-    <p class="lead">Browse our collection of freshly baked goods and sweet treats.</p>
-</header>
 <!-- index.html content starts here -->
 <div class="container-fluid">
     <div class="row">
 
-
-
-        <!-- Blog Entries Column -->
+        <!-- Recipes Entries Column -->
         <div class="col-12 mt-3 left">
             <div class="row">
                 {% for recipe in recipes_list %}
@@ -28,6 +21,7 @@
                             </div>
                             <a href="#" class="post-link">
                                 <h2 class="card-title">{{ recipe.title }}</h2>
+                                <p class="card-text">{{ recipe.excerpt }}</p>
                             </a>
 
                             <hr />
@@ -48,8 +42,17 @@
     {% if is_paginated %}
     <nav aria-label="Page navigation">
         <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+            <li>
+                <a href="?page={{ page_obj.previous_page_number }}"
+                  class="page-link">&laquo; PREV</a>
+            </li>
+            {% endif %}
             {% if page_obj.has_next %}
-            <li><a href="?page={{ page_obj.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
+            <li>
+                <a href="?page={{ page_obj.next_page_number }}"
+                  class="page-link">NEXT &raquo;</a>
+            </li>
             {% endif %}
         </ul>
     </nav>
