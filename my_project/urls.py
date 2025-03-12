@@ -11,8 +11,7 @@ urlpatterns = [
     path('recipes/', include('recipes.urls')), 
 
     # Main Pages
-    path('', views.index, name='home'),
-    path('menu/', views.menu_view, name='menu'), 
+    path('', views.index, name='home'), 
     path('about/', views.about_view, name='about'),
     path('contact/', views.contact_view, name='contact'),
     # Authentication

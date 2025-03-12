@@ -15,6 +15,11 @@
                     <div class="card mb-4">
                         <div class="card-body">
                             <div class="image-container">
+                                {% if recipe.image %}
+                                    <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" class="img-fluid">
+                                {% else %}
+                                 <img src="{% static 'img/default-recipe.jpg' %}" alt="Default Recipe Image" class="img-fluid">
+                                {% endif %}
                                 <div class="image-flash">
                                     <p class="author">Author: {{ recipe.author }}</p>
                                 </div>

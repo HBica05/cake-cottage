@@ -11,7 +11,7 @@ class Recipe(models.Model):
     User, on_delete=models.CASCADE, related_name="recipe_posts"
 )
     content = models.TextField(default="No content provided")
-    image = models.ImageField(upload_to='recipes/')  
+    image = models.ImageField(upload_to='recipes/', null=True, blank=True)  
     description = models.TextField()
     ingredients = models.TextField()
     instructions = models.TextField()

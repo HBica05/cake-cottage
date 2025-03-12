@@ -30,12 +30,6 @@ def index(request):
     return redirect("recipe_list")
 
 
-# ✅ Menu Page View
-def menu_view(request):
-    recipes = Recipe.objects.all()
-    return render(request, 'recipes/menu.html', {'recipes': recipes})
-
-
 # ✅ About Page View
 def about_view(request):
     return render(request, 'recipes/about.html')
