@@ -1,12 +1,7 @@
-/* General Reset */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/* Body and Text */
-body {
+/* =======================
+   GENERAL STYLING
+   ======================= */
+   body {
     background-image: url('../img/cake.jpeg');
     background-repeat: no-repeat;
     background-position: center;
@@ -15,6 +10,28 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
+/* Ensure the page fills at least the viewport height */
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Push content area to take up remaining space */
+main {
+    flex: 1;
+}
+
+/* Typography */
+h1, h2, h3 {
+    color: #d27d5f;
+    font-family: 'Comic Sans MS', 'Arial', sans-serif;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+/* Overlay */
 .opaque-overlay {
     position: absolute;
     top: 0;
@@ -24,19 +41,15 @@ body {
     background-color: rgba(0, 0, 0, 0.5);
 }
 
-h1, h2, h3 {
-    color: #d27d5f;
-    font-family: 'Comic Sans MS', 'Arial', sans-serif;
-    font-weight: bold;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-}
-
-/* Navigation */
+/* =======================
+   NAVIGATION BAR
+   ======================= */
 header {
-    background-color: rgba(255,194,209, 0.4);
-    padding: 20px 0;
-    top: 0;
-    z-index: 100;
+    background-color: rgba(255, 194, 209, 0.6);
+    padding: 15px 0;
+    position: fixed;
+    width: 100%;
+    z-index: 10;
 }
 
 header .container {
@@ -44,19 +57,11 @@ header .container {
     max-width: 1200px;
     margin: 0 auto;
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
-    gap: 20px;
 }
 
-header h1 {
-    font-size: 4rem;
-    font-weight: bold;
-    letter-spacing: 2px;
-    color: #d27d5f;
-    font-family: 'Georgia', 'Times New Roman', serif;
-}
-
+/* Navigation Links */
 header nav ul {
     list-style: none;
     display: flex;
@@ -72,6 +77,7 @@ header nav ul li a {
     color: #302f2f;
     font-weight: 500;
     text-transform: uppercase;
+    transition: color 0.3s ease-in-out;
 }
 
 header nav ul li a:hover {
@@ -79,73 +85,34 @@ header nav ul li a:hover {
     text-decoration: underline;
 }
 
-
+/* Mobile Navigation */
 .menu-icon {
-   display:none;
+   display: none;
    cursor: pointer;
 }
 
-.dropdown-menu {
-    display: none;
-    position: absolute;
-    background: white;
-    list-style: none;
-    padding: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.dropdown:hover .dropdown-menu {
-    display: block;
-}
-
 @media screen and (max-width: 768px) {
-    .dropdown-menu {
-        position: static;
-        box-shadow: none;
-    }
-}
-
-/* Mobile (Tablet and below) */
-@media (max-width: 768px) {
-    #nav-links {
-        display: none;
-        flex-direction: column;
-        width: 100%;
-        text-align: center;
-        background-color: rgba(243, 185, 176, 0.9);
-        position: absolute;
-        top: 60px;
-        right: 0;
-    }
-
-    #nav-links.active {
-        display: flex;
-    }
-
     .menu-icon {
         display: block;
     }
 
     header nav ul {
+        display: none;
         flex-direction: column;
-    }
-
-    header nav ul li {
-        margin-bottom: 15px;
-    }
-
-    header nav ul li a {
-        display: block;
         width: 100%;
-        padding: 10px;
-        font-size: 1.3rem;
+        text-align: center;
     }
-    
+
+    header nav ul.active {
+        display: flex;
+    }
 }
 
-/* Hero Section */
+/* =======================
+   HERO SECTION
+   ======================= */
 .hero {
-    background: url('bakery-banner.jpg') no-repeat center center/cover;
+    background: url('../img/bakery-banner.jpg') no-repeat center center/cover;
     height: 400px;
     display: flex;
     justify-content: center;
@@ -156,8 +123,7 @@ header nav ul li a:hover {
 }
 
 .hero-content h2 {
-    font-size: 3.5rem;
-    margin-bottom: 20px;
+    font-size: 3rem;
     color: #f8f0e3;
 }
 
@@ -166,32 +132,13 @@ header nav ul li a:hover {
     margin-bottom: 20px;
 }
 
-.hero .btn {
-    background-color: #d27d5f;
-    color: #fff;
-    padding: 12px 30px;
-    text-decoration: none;
-    font-weight: bold;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-    text-transform: uppercase;
-}
-
-.hero .btn:hover {
-    background-color: #b55d42;
-}
-
-/* Products Section */
+/* =======================
+   PRODUCTS SECTION
+   ======================= */
 .products {
     padding: 50px 0;
     background-color: #ffffff;
-}
-
-.products .container {
-    max-width: 1200px;
-    margin: 0 auto;
     text-align: center;
-    padding-top: 30px;
 }
 
 .product-list {
@@ -218,20 +165,14 @@ header nav ul li a:hover {
     margin-bottom: 15px;
 }
 
-.product h2 {
-    font-size: 1.8rem;
-}
-
 .product h3 {
     font-size: 1.5rem;
     margin-bottom: 10px;
 }
 
-.product p {
-    font-size: 1.2rem;
-}
-
-/* About Us Section */
+/* =======================
+   ABOUT US SECTION
+   ======================= */
 .about {
     padding: 50px 0;
     background-color: #f8f0e3;
@@ -244,17 +185,19 @@ header nav ul li a:hover {
     margin: 20px auto;
 }
 
-/* Contact Section */
+/* =======================
+   CONTACT SECTION
+   ======================= */
 .contact {
     padding: 50px 0;
     background-color: #fff;
-    text-align: center;  /* Centers the content */
+    text-align: center;
 }
 
 .contact h2 {
     font-size: 2.5rem;
     margin-bottom: 10px;
-    color: #d27d5f;  /* Customize color as needed */
+    color: #d27d5f;
 }
 
 .contact p {
@@ -274,7 +217,8 @@ header nav ul li a:hover {
     font-weight: bold;
 }
 
-.contact input, .contact textarea {
+.contact input, 
+.contact textarea {
     padding: 10px;
     font-size: 1rem;
     border: 1px solid #ccc;
@@ -296,42 +240,16 @@ header nav ul li a:hover {
     background-color: #b55d42;
 }
 
-
-/* Responsive Layout */
-@media (max-width: 768px) {
-    .contact-content {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .contact-form {
-        width: 100%;
-    }
-}
-
-/* Email text styling */
-.email-text {
-    font-size: 0.7rem;  /* Smaller font size */
-    color: #d27d5f;  /* Match the color of the header */
-    margin-top: 20px;
-    font-weight: 500;  /* Slightly bolder text */
-}
-
-.email-text a {
-    color: #d27d5f;  /* Same color for the link */
-    text-decoration: none;  /* Remove underline */
-    font-weight: 600;  /* Make the email link stand out */
-}
-
-.email-text a:hover {
-    text-decoration: underline;  /* Add underline on hover */
-}
-
-/* Footer */
+/* =======================
+   FOOTER SECTION
+   ======================= */
 footer {
     background-color: #f1c0b9;
     padding: 20px 0;
     text-align: center;
+    position: relative;
+    bottom: 0;
+    width: 100%;
 }
 
 footer p {
@@ -339,7 +257,9 @@ footer p {
     font-size: 1rem;
 }
 
-/* Responsive Design */
+/* =======================
+   RESPONSIVE DESIGN
+   ======================= */
 @media (max-width: 768px) {
     .product-list {
         flex-direction: column;

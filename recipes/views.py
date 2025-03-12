@@ -58,27 +58,15 @@ def contact_view(request):
 
 
 # ✅ Recipe Detail View
-def recipe_detail(request, recipe_id):
-    recipe = get_object_or_404(Recipe, id=recipe_id)
-    comments = recipe.comments.all()
-    
-    if request.method == "POST":
-        comment_form = CommentForm(request.POST)
-        if comment_form.is_valid():
-            new_comment = comment_form.save(commit=False)
-            new_comment.recipe = recipe
-            new_comment.author = request.user
-            new_comment.save()
-            messages.success(request, "Comment added successfully! 🎉")
-            return redirect('recipe_detail', recipe_id=recipe.id)
-    else:
-        comment_form = CommentForm()
+def recipe_detail(request, slug):
+    queryset = Recipe.objects.filter(status=1)
+    recipe = get_object_or_404(queryset, slug=slug) 
 
-    return render(request, 'recipes/recipe_detail.html', {
-        'recipe': recipe,
-        'comments': comments,
-        'comment_form': comment_form
-    })
+    return render(
+        request,
+        "recipes/recipe_detail.html",
+        {"recipe": recipe},  
+    )
 
 
 # ✅ Recipe Creation View

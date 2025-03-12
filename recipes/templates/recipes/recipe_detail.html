@@ -1,19 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ recipe.title }}</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/recipe_detail.css' %}">
-</head>
-<body>
-    <header>
-        <h1>Bakery Recipe - {{ recipe.title }}</h1>
-        <nav>
-            <a href="{% url 'recipe_list' %}">Back to Recipes</a>
-        </nav>
-    </header>
+{% extends 'base.html' %}{% block content %}
+{% load static %}
+
+
+    <h1 class="post-title">{{ recipe.title }}</h1>
+    <!-- Post author goes before the | the post's created date goes after -->
+    <p class="post-subtitle">{{ recipe.author }} | {{ recipe.created_at }}</p>
 
     <div class="recipe-detail">
         <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}">
@@ -22,6 +13,11 @@
         <p>{{ recipe.ingredients }}</p>
         <h3>Instructions</h3>
         <p>{{ recipe.instructions }}</p>
+
+        <div class="d-one d-md-block col-md-6 masthead-image">
+            <img src=" {% static 'img/default.jpg' %}">
+
+        </div>
 
         <h3>Comments</h3>
         <div class="comments">
@@ -46,5 +42,5 @@
             </form>
         {% endif %}    
     </div>
-</body>
-</html>
+
+{% endblock content %}
