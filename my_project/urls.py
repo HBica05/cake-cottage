@@ -4,9 +4,7 @@ from recipes import views
 from django.conf import settings
 from django.conf.urls.static import static
 
-
 urlpatterns = [
-    path('accounts/', include('django.contrib.auth.urls')),
     path('admin/', admin.site.urls),
     path('recipes/', include('recipes.urls')), 
 
@@ -14,7 +12,8 @@ urlpatterns = [
     path('', views.index, name='home'), 
     path('about/', views.about_view, name='about'),
     path('contact/', views.contact_view, name='contact'),
-    # Authentication
+
+    # Authentication (Only include allauth)
     path("accounts/", include("allauth.urls")),
 
     # Recipe & Comment Management
@@ -23,7 +22,6 @@ urlpatterns = [
     path('comment/add/<int:recipe_id>/', views.add_comment, name='add_comment'),
     path('comment/edit/<int:comment_id>/', views.edit_comment, name='edit_comment'),
     path('comment/delete/<int:comment_id>/', views.delete_comment, name='delete_comment'),
-
 ]
 
 # Serve media files during development
