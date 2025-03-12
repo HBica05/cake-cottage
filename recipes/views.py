@@ -35,6 +35,25 @@ def about_view(request):
     return render(request, 'recipes/about.html')
 
 
+class EventList(generic.ListView):
+
+
+    model = EventListtemplate_name = "index.html"
+    paginated_by = 12
+
+
+
+# def event_detail(request, event_id):
+    
+#     queryset = Event.objects.all()
+#     event = get_object_or_404(queryset, event_id=event_id)
+
+#     return render(
+#         request,
+#         "events/event_detail.html",
+#         {"event": event}
+#     )
+
 # ✅ Contact Page View (Handles Form Submission)
 def contact_view(request):
     if request.method == "POST":
@@ -60,12 +79,8 @@ def contact_view(request):
 # ✅ Recipe Detail View
 def recipe_detail(request, slug):
     queryset = Recipe.objects.filter(status=1)
-    recipe = get_object_or_404(queryset, slug=slug) 
-
-    return render(
-        request,
-        "recipes/recipe_detail.html",
-        {"recipe": recipe},  
+    recipe = get_object_or_404(queryset, slug=slug)
+    return render(request, "recipes/recipe_detail.html",{"recipe": recipe,},  
     )
 
 

@@ -29,7 +29,9 @@ At Cake Cottage, you can:
   - [🛠 Technologies Used](#-technologies-used)
     - [🖥️ Front-End Technologies](#️-front-end-technologies)
     - [🖥️ Back-End Technologies](#️-back-end-technologies)
+- [Common Errors \& Solutions](#common-errors--solutions)
     - [🚀 Deployment](#-deployment)
+  - [Conclusion](#conclusion)
   - [🔹 API Endpoints](#-api-endpoints)
     - [📌 Recipe Endpoints](#-recipe-endpoints)
     - [💬 Comment Endpoints](#-comment-endpoints)
@@ -119,9 +121,7 @@ We have carefully selected typography that complements the aesthetic of Cake Cot
 - [**C**RUD] Create or 'add' a new recipe. Defensive programming in place means users must adhere to minimal requirements when adding a new recipe. If a user doesn't have a photo to accompany their recipe, I have a built-in function that will automatically assign a cute placeholder image based on the type of dessert category they've selected.
 
 **View a Recipe**
-- [C**R**UD] Read or 'review' recipes, either from the main page, or the user profile. From here, users also have additional options:
-    - Print the recipe.
-    - Share the recipe.
+- [C**R**UD] Read or 'review' recipes, either from the main page, or the user profile.
     - Check ingredients / directions as 'complete' if making the recipe themselves.
     - View two additional recipe suggestions.
     - View a *conversion chart* either by temperature, volume, or weight.
@@ -200,9 +200,64 @@ Technologies Used
 
 * [django-heroku 0.3.1](https://pypi.org/project/django-heroku/): Automatically configures Django settings for deployment on Heroku.
 
+
+# Common Errors & Solutions
+During the development of the Little Cake Cottage website, several challenges and errors arose. Below is a list of common issues encountered along with their solutions.
+
+1. "urlpatterns is not defined" Error
+   
+Problem:
+- While working on Django settings, an error stating `urlpatterns is not defined` appeared.
+
+Solution: 
+- Ensure that the urlpatterns list is correctly defined at the bottom of urls.py.
+- Also, check for missing or incorrect imports in urls.py.
+
+2. Static Files Not Loading
+Problem:
+- CSS and JavaScript files were not being applied properly, and the python manage.py collectstatic command showed warnings about missing static files.
+
+Solution:
+- Ensure the STATICFILES_DIRS path is correctly set in `settings.py`.
+- Run the command `python manage.py collectstatic` again.
+
+3. "Failed to load resource: the server responded with a status of 404 (Not Found)"
+Problem:
+- Some images were not displaying on the website, and the browser console showed 404 Not Found errors.
+
+Solution:
+- Verify that the images exist in the correct static or media directory.
+- If using uploaded images, ensure MEDIA_URL and MEDIA_ROOT are correctly configured in `settings.py`.
+
+Add these lines to urls.py to serve media files during development:
+![alt text](image.png)
+
 ### 🚀 Deployment
 - **Heroku**
     - [Heroku](https://www.heroku.com) - Hosting platform.
+
+4. Duplicate Static Files Warning in collectstatic
+Problem:
+- When running python manage.py collectstatic, warnings appeared stating that some static files were ignored due to duplication.
+
+Solution:
+- Check if there are multiple static directories (e.g., static/ and staticfiles/).
+
+5. Django 500 Server Error (Internal Server Error)
+Problem:
+The website displayed "Server Error (500)" with no details.
+
+Solution:
+- Check the logs using:
+`python manage.py runserver`
+
+- Enable debug mode in `settings.py`:
+  `DEBUG = True`
+
+- If the error persists, check `views.py` for missing imports or incorrect function names. 
+
+## Conclusion
+These were some of the most common errors encountered while building the Cake Cottage website. Debugging these issues provided valuable insights into Django’s URL routing, static files management, and database interactions. If you encounter additional issues, checking error messages in the browser console and Django logs is always a good first step.
 
 ## 🔹 API Endpoints
 The backend provides a set of API endpoints to facilitate user interactions such as creating, updating, and retrieving recipes and comments.

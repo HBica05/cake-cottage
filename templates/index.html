@@ -18,23 +18,30 @@
                                 {% if recipe.image %}
                                     <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" class="img-fluid">
                                 {% else %}
-                                 <img src="{% static 'img/default-recipe.jpg' %}" alt="Default Recipe Image" class="img-fluid">
+                                    <img src="{% static 'img/default-recipe.jpg' %}" alt="Default Recipe Image" class="img-fluid">
                                 {% endif %}
                                 <div class="image-flash">
                                     <p class="author">Author: {{ recipe.author }}</p>
                                 </div>
                             </div>
-                            <a href="{% url 'recipe_detail' recipe.slug %}" class="post-link">
+                            <a href="{% url 'recipe_detail' slug=recipe.slug %}" class="post-link">
                                 <h2 class="card-title">{{ recipe.title }}</h2>
                                 <p class="card-text">{{ recipe.excerpt }}</p>
                             </a>
+                            <a href="{% url 'event_detail' event.event_id %}" class="btn btn-primary">View Recipe
+                                <h2>{{ event.event_name }}</h2>
 
+                            </a>
                             <hr />
-                            <p class="card-text text-muted h6">{{ recipe.created_at}}
-                            </p>
+                            <p class="card-text text-muted h6">{{ recipe.created_at }}</p>
                         </div>
                     </div>
                 </div>
+    {% if forloop.counter|divisibleby:3 %}
+    </div><div class="row">
+    {% endif %}
+    {% endfor %}
+
                 {% if forloop.counter|divisibleby:3 %}
             </div>
             <div class="row">

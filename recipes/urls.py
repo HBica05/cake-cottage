@@ -8,11 +8,12 @@ urlpatterns = [
  
 
     # Recipe-related views
-    path('<int:recipe_id>/', views.recipe_detail, name='recipe_detail'),
     path('create/', views.recipe_create, name='recipe_create'),
     path('<int:recipe_id>/edit/', views.recipe_edit, name='recipe_edit'),
     path('<int:recipe_id>/delete/', views.recipe_delete, name='recipe_delete'),
     path('<slug:slug>/', views.recipe_detail, name='recipe_detail'),
+    # path("<int:event_id>/", views.event_detail,
+    #      name="event_detail"), 
 
     # Comments
     path('<int:recipe_id>/comment/add/', views.add_comment, name='add_comment'),

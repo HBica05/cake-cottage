@@ -1,12 +1,26 @@
 {% extends 'base.html' %}{% block content %}
 {% load static %}
 
+<div class="masthead">
+    <div class="container">
+        <div class="row g-0">
+            <div class="col-md-6 masthead-text">
+                <h1 class="recipe-title">{{ recipe.title }}</h1>
+                <!-- Post author goes before the | the post's created date goes after -->
+                <p class="recipe-subtitle">{{ recipe.author }} | {{ recipe.created_at }}</p>
+            </div>
+            <div class="d-one d-md-block col-md-6 masthead-image">
+                <img src=" {% static 'img/default.jpg' %}"> 
+            </div>       
+        </div>
+    </div>
 
-    <h1 class="post-title">{{ recipe.title }}</h1>
-    <!-- Post author goes before the | the post's created date goes after -->
-    <p class="post-subtitle">{{ recipe.author }} | {{ recipe.created_at }}</p>
-
-    <div class="recipe-detail">
+</div>
+   
+  
+  
+  
+    <!-- <div class="recipe-detail">
         <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}">
         <h2>{{ recipe.title }}</h2>
         <h3>Ingredients</h3>
@@ -14,10 +28,9 @@
         <h3>Instructions</h3>
         <p>{{ recipe.instructions }}</p>
 
-        <div class="d-one d-md-block col-md-6 masthead-image">
-            <img src=" {% static 'img/default.jpg' %}">
+        
 
-        </div>
+        </div> -->
 
         <h3>Comments</h3>
         <div class="comments">
@@ -35,7 +48,7 @@
 
         {% if user.is_authenticated %}    
             <h3>Add a Comment</h3>
-            <form method="post" action="{% url 'add_comment' recipe.id %}">
+            <form method="post" action="{% url 'add_comment' recipe.slug %}">
                 {% csrf_token %}
                 {{ comment_form.as_p }}
                 <button type="submit">Submit Comment</button>
