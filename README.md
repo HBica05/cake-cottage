@@ -42,6 +42,12 @@ At Cake Cottage, you can:
 - [📌 Getting Started](#-getting-started)
   - [🏗️ Installation Guide](#️-installation-guide)
   - [🤝 Contributing](#-contributing)
+  - [**Credits** 🎖️](#credits-️)
+    - [**Mentor Guidance**](#mentor-guidance)
+    - [**Authentication - Django Allauth**](#authentication---django-allauth)
+    - [**Troubleshooting Support**](#troubleshooting-support)
+    - [**Educational Resources - Code Institute**](#educational-resources---code-institute)
+    - [Readme file](#readme-file)
         - [📌 Back to top](#-back-to-top)
 
 
@@ -332,5 +338,22 @@ The Little Cake Cottage is a friendly and welcoming space for all baking lovers.
 ## 🤝 Contributing
 - 🎉 We welcome contributions! Feel free to submit pull requests, report issues, or suggest new features.
   
+## **Credits** 🎖️
+### **Mentor Guidance**  
+I would like to express my deepest gratitude to my **mentor Spencer Barriball** for their invaluable guidance and support throughout this project. Their insights, advice, and encouragement have been instrumental in helping me navigate challenges and improve my skills.
+
+### **Authentication - Django Allauth**  
+This project utilizes **[Django Allauth](https://django-allauth.readthedocs.io/en/latest/)** for user authentication, providing seamless registration, login, and account management functionality.
+
+### **Troubleshooting Support**  
+- Special thanks to **ChatGPT** for assisting in debugging, troubleshooting errors, and providing clear explanations that helped me solve various issues efficiently.
+- A special thanks to Tutor Assistance from Code Institute, which guided me to follow the right next step to solve the issues I encountered.
+
+### **Educational Resources - Code Institute**  
+I am grateful to **[Code Institute](https://codeinstitute.net/)** for providing structured lessons and hands-on projects that equipped me with the knowledge and confidence to build this Django application.
+  
+### Readme file   
+- Inspiration for the README file:
+[https://github.com/TravelTimN/ci-milestone04-dcd/blob/main/README.md]  
  
  ##### 📌 Back to [top](##table-of-contents)
