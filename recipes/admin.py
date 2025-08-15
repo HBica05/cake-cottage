@@ -12,7 +12,7 @@ class RecipeAdmin(admin.ModelAdmin):
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ("id", "recipe", "user", "short_body", "is_approved", "created_at")
+    list_display = ("id", "recipe", "user", "body", "created_at")
     list_filter = ("is_approved", "created_at", "recipe")
     search_fields = ("body", "user__username", "recipe__title")
     ordering = ("-created_at",)

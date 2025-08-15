@@ -1,222 +1,208 @@
-from django.http import HttpResponse
-from django.shortcuts import render, get_object_or_404, redirect
-from .models import Recipe, Comment
-from .forms import RecipeForm, CommentForm
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
+# recipes/views.py
+from django.conf import settings
 from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import authenticate, login, logout  
-from django.core.mail import send_mail 
-from django.conf import settings 
+from django.core.mail import send_mail
+from django.shortcuts import get_object_or_404, redirect, render
+from django.views.decorators.http import require_POST
 from django.views import generic
 
-
-# ✅ Recipe List View (Class-Based)
-class RecipeList(generic.ListView):
-    queryset = Recipe.objects.filter(status=1)
-    template_name = "recipes/recipe_list.html"
-    paginate_by = 6
+from .forms import CommentForm, RecipeForm
+from .models import Comment, Recipe, Like
 
 
-# ✅ Recipe List View (Function-Based, if preferred)
-def recipe_list(request):
-    recipes = Recipe.objects.filter(status=1)
-    return render(request, "recipes/recipe_list.html", {"recipes": recipes})
+# ===== Home / Static =====
 
-
-# ✅ Home Page View (Redirecting to Recipe List)
 def index(request):
+    """Redirect home to the recipe list."""
     return redirect("recipe_list")
 
 
-# ✅ About Page View
 def about_view(request):
-    return render(request, 'recipes/about.html')
+    return render(request, "recipes/about.html")
 
 
-class EventList(generic.ListView):
-
-
-    model = EventListtemplate_name = "index.html"
-    paginated_by = 12
-
-
-
-# def event_detail(request, event_id):
-    
-#     queryset = Event.objects.all()
-#     event = get_object_or_404(queryset, event_id=event_id)
-
-#     return render(
-#         request,
-#         "events/event_detail.html",
-#         {"event": event}
-#     )
-
-# ✅ Contact Page View (Handles Form Submission)
 def contact_view(request):
+    """Basic contact form handler (uses email backend from settings)."""
     if request.method == "POST":
-        name = request.POST.get("name")
-        email = request.POST.get("email")
-        message = request.POST.get("message")
+        name = request.POST.get("name", "").strip()
+        email = request.POST.get("email", "").strip()
+        message = request.POST.get("message", "").strip()
 
-        # Send email (Ensure email settings are configured in settings.py)
+        if not (name and email and message):
+            messages.error(request, "Please fill out all fields.")
+            return redirect("contact")
+
         send_mail(
             subject=f"New Contact Message from {name}",
-            message=f"Message from {name} ({email}):\n\n{message}",
+            message=f"From: {name} <{email}>\n\n{message}",
             from_email=settings.DEFAULT_FROM_EMAIL,
-            recipient_list=["your-email@example.com"],  # Change this to your email
+            recipient_list=[settings.DEFAULT_FROM_EMAIL],
             fail_silently=False,
         )
-
-        messages.success(request, "Your message has been sent successfully! ✅")
+        messages.success(request, "Your message has been sent successfully!")
         return redirect("contact")
 
     return render(request, "recipes/contact.html")
 
 
-# ✅ Recipe Detail View
-def recipe_detail(request, slug):
+# ===== Recipes (List / Detail) =====
+
+class RecipeList(generic.ListView):
+    """Optional CBV list if you want pagination."""
     queryset = Recipe.objects.filter(status=1)
-    recipe = get_object_or_404(queryset, slug=slug)
-    return render(request, "recipes/recipe_detail.html",{"recipe": recipe,},  
-    )
+    template_name = "recipes/recipe_list.html"
+    paginate_by = 6
 
 
-# ✅ Recipe Creation View
+def recipe_list(request):
+    """Function-based list (simple)."""
+    recipes = Recipe.objects.filter(status=1)
+    return render(request, "recipes/recipe_list.html", {"recipes": recipes})
+
+
+def recipe_detail(request, slug):
+    """Show a published recipe and the comment form."""
+    recipe = get_object_or_404(Recipe, slug=slug, status=1)
+    form = CommentForm(request.POST or None)
+    if request.method == "POST" and request.user.is_authenticated and form.is_valid():
+        # Post a comment from the detail page
+        comment = form.save(commit=False)
+        comment.user = request.user
+        comment.recipe = recipe
+        comment.save()
+        messages.success(request, "Comment posted.")
+        return redirect("recipe_detail", slug=slug)
+    return render(request, "recipes/recipe_detail.html", {"recipe": recipe, "form": form})
+
+
+# ===== Recipes (Create / Edit / Delete) =====
+
 @login_required
 def recipe_create(request):
-    if request.method == "POST":
-        form = RecipeForm(request.POST, request.FILES)
-        if form.is_valid():
-            recipe = form.save(commit=False)
-            recipe.author = request.user
-            recipe.save()
-            messages.success(request, "Recipe created successfully! 🍰")
-            return redirect('recipe_detail', recipe_id=recipe.id)
-    else:
-        form = RecipeForm()
-    
-    return render(request, 'recipes/recipe_form.html', {'form': form})
+    form = RecipeForm(request.POST or None, request.FILES or None)
+    if request.method == "POST" and form.is_valid():
+        recipe = form.save(commit=False)
+        recipe.author = request.user
+        recipe.save()
+        messages.success(request, "Recipe created successfully!")
+        return redirect("recipe_detail", slug=recipe.slug)
+    return render(request, "recipes/recipe_form.html", {"form": form})
 
 
-# ✅ Recipe Edit View
 @login_required
-def recipe_edit(request, recipe_id):
-    recipe = get_object_or_404(Recipe, id=recipe_id)
-    if request.user != recipe.author:
-        messages.error(request, "You are not authorized to edit this recipe.")
-        return redirect('recipe_detail', recipe_id=recipe.id)
-    
-    if request.method == "POST":
-        form = RecipeForm(request.POST, request.FILES, instance=recipe)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "Recipe updated successfully! ✅")
-            return redirect('recipe_detail', recipe_id=recipe.id)
-    else:
-        form = RecipeForm(instance=recipe)
-    
-    return render(request, 'recipes/recipe_form.html', {'form': form})
+def recipe_edit(request, slug):
+    recipe = get_object_or_404(Recipe, slug=slug, author=request.user)
+    form = RecipeForm(request.POST or None, request.FILES or None, instance=recipe)
+    if request.method == "POST" and form.is_valid():
+        form.save()
+        messages.success(request, "Recipe updated successfully!")
+        return redirect("recipe_detail", slug=recipe.slug)
+    return render(request, "recipes/recipe_form.html", {"form": form, "recipe": recipe})
 
 
-# ✅ Recipe Delete View
 @login_required
-def recipe_delete(request, recipe_id):
-    recipe = get_object_or_404(Recipe, id=recipe_id)
-    if request.user == recipe.author:
+def recipe_delete(request, slug):
+    recipe = get_object_or_404(Recipe, slug=slug, author=request.user)
+    if request.method == "POST":
         recipe.delete()
-        messages.success(request, "Recipe deleted successfully! 🗑️")
-    else:
-        messages.error(request, "You are not authorized to delete this recipe.")
-    return redirect('recipe_list')
+        messages.info(request, "Recipe deleted.")
+        return redirect("recipe_list")
+    # If GET, show a confirm page
+    return render(request, "recipes/recipe_confirm_delete.html", {"recipe": recipe})
 
 
-# ✅ Add Comment View
+# ===== Likes =====
+
 @login_required
-def add_comment(request, recipe_id):
-    recipe = get_object_or_404(Recipe, id=recipe_id)
-    
-    if request.method == "POST":
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            comment = form.save(commit=False)
-            comment.recipe = recipe
-            comment.author = request.user
-            comment.save()
-            messages.success(request, "Comment added successfully! 🎉")
-            return redirect('recipe_detail', recipe_id=recipe.id)
-    
+@require_POST
+def toggle_like(request, slug):
+    recipe = get_object_or_404(Recipe, slug=slug, status=1)
+    like, created = Like.objects.get_or_create(recipe=recipe, user=request.user)
+    if not created:
+        like.delete()
+        messages.info(request, "Like removed.")
     else:
-        form = CommentForm()
+        messages.success(request, "Liked!")
+    return redirect("recipe_detail", slug=slug)
 
-    return render(request, 'comments/add_comment.html', {'form': form, 'recipe': recipe})
+
+# ===== Comments (separate add/edit/delete endpoints) =====
+
+@login_required
+@require_POST
+def add_comment(request, slug):
+    recipe = get_object_or_404(Recipe, slug=slug, status=1)
+    form = CommentForm(request.POST)
+    if form.is_valid():
+        comment = form.save(commit=False)
+        comment.user = request.user
+        comment.recipe = recipe
+        comment.save()
+        messages.success(request, "Comment added successfully!")
+    else:
+        messages.error(request, "There was a problem with your comment.")
+    return redirect("recipe_detail", slug=recipe.slug)
 
 
-# ✅ Edit Comment View
 @login_required
 def edit_comment(request, comment_id):
     comment = get_object_or_404(Comment, id=comment_id)
-    if request.user != comment.author:
-        return redirect('recipe_detail', recipe_id=comment.recipe.id)
-    
-    if request.method == "POST":
-        form = CommentForm(request.POST, instance=comment)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "Comment updated successfully! ✅")
-            return redirect('recipe_detail', recipe_id=comment.recipe.id)
-    else:
-        form = CommentForm(instance=comment)
-    
-    return render(request, 'comments/edit_comment.html', {'form': form})
+    if request.user != comment.user:
+        messages.error(request, "You are not authorized to edit this comment.")
+        return redirect("recipe_detail", slug=comment.recipe.slug)
+
+    form = CommentForm(request.POST or None, instance=comment)
+    if request.method == "POST" and form.is_valid():
+        form.save()
+        messages.success(request, "Comment updated successfully!")
+        return redirect("recipe_detail", slug=comment.recipe.slug)
+    return render(request, "comments/edit_comment.html", {"form": form, "comment": comment})
 
 
-# ✅ Delete Comment View
 @login_required
 def delete_comment(request, comment_id):
     comment = get_object_or_404(Comment, id=comment_id)
-    if request.user == comment.author:
+    if request.user == comment.user:
         comment.delete()
-        messages.success(request, "Comment deleted successfully! 🗑️")
-    return redirect('recipe_detail', recipe_id=comment.recipe.id)
+        messages.success(request, "Comment deleted.")
+    else:
+        messages.error(request, "You are not authorized to delete this comment.")
+    return redirect("recipe_detail", slug=comment.recipe.slug)
 
 
-# ✅ User Registration View
+# ===== Auth (simple custom handlers) =====
+
 def register(request):
     if request.method == "POST":
         form = UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            login(request, user)  # Auto-login after signup
-            messages.success(request, "Account created successfully! 🎉")
-            return redirect("home")
+            login(request, user)
+            messages.success(request, "Account created successfully!")
+            return redirect("recipe_list")
     else:
         form = UserCreationForm()
-    
-    return render(request, "recipes/register.html", {'form': form})
+    return render(request, "recipes/register.html", {"form": form})
 
 
-# ✅ User Login View
 def login_view(request):
     if request.method == "POST":
-        username = request.POST["username"]
-        password = request.POST["password"]
+        username = request.POST.get("username", "")
+        password = request.POST.get("password", "")
         user = authenticate(request, username=username, password=password)
-        if user is not None:
+        if user:
             login(request, user)
-            messages.success(request, "Logged in successfully! 🎉")
-            return redirect("recipe_list")  
-        else:
-            messages.error(request, "Invalid username or password. ❌")
-
-    return render(request, "recipes/login.html")  
+            messages.success(request, "Logged in successfully!")
+            return redirect("recipe_list")
+        messages.error(request, "Invalid username or password.")
+    return render(request, "recipes/login.html")
 
 
-# ✅ User Logout View
 @login_required
 def logout_view(request):
     logout(request)
-    messages.success(request, "Logged out successfully! 👋")
+    messages.success(request, "Logged out successfully!")
     return redirect("login")

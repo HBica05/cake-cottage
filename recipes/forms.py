@@ -1,14 +1,15 @@
 from django import forms
 from .models import Recipe, Comment
 
-# Form for creating/updating recipes
 class RecipeForm(forms.ModelForm):
     class Meta:
         model = Recipe
-        fields = ['title', 'description', 'ingredients', 'instructions']
+        fields = ['title', 'description', 'ingredients', 'instructions', "image", "status", "category"]
 
-# Form for adding comments to recipes
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        fields = ['text']
+        fields = ['body']
+        widgets = {
+                "body": forms.Textarea(attrs={"rows": 4, "aria-label": "Write a comment"}),
+        }
