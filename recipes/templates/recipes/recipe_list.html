@@ -1,57 +1,25 @@
-{% extends 'base.html' %}
-
-{% block title %}Recipes{% endblock title %}
-
+{% extends "base.html" %}
+{% load static %}
 {% block content %}
-<div class="container mt-4">
-    <h2 class="text-center">All Recipes</h2>
-    
-    {% if recipes %}
-        <div class="row">
-            {% for recipe in recipes %}
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    {% if recipe.image %}
-                    <img src="{{ recipe.image.url }}" class="card-img-top" alt="{{ recipe.title }}">
-                    {% endif %}
-                    <div class="card-body">
-                        <h5 class="card-title">{{ recipe.title }}</h5>
-                        <p class="card-text">{{ recipe.excerpt }}</p>
-                        <p class="text-muted">By {{ recipe.author }}</p>
-                        <a href="{% url 'recipe_detail' recipe.id %}" class="btn btn-primary">View Recipe</a>
-                    </div>
-                    <div class="card-footer text-muted">
-                        Published on {{ recipe.created_at|date:"F d, Y" }}
-                    </div>
-                </div>
-            </div>
-
-            {% if forloop.counter|divisibleby:3 %}
-            </div>
-            <div class="row">
-            {% endif %}
-
-            {% endfor %}
+<h1 class="mb-3">All Recipes</h1>
+<div class="row">
+  {% for recipe in recipes %}
+    <div class="col-12 col-sm-6 col-lg-4 mb-4">
+      <div class="card h-100">
+        {% if recipe.image %}
+          <img class="card-img-top" src="{{ recipe.image.url }}" alt="{{ recipe.title }}">
+        {% else %}
+          <img class="card-img-top" src="{% static 'img/placeholder.jpg' %}" alt="No image">
+        {% endif %}
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">{{ recipe.title }}</h5>
+          <p class="card-text">{{ recipe.excerpt|default:recipe.description|truncatechars:110 }}</p>
+          <a class="btn btn-primary mt-auto" href="{% url 'recipe_detail' recipe.slug %}">View recipe</a>
         </div>
-    {% else %}
-        <p class="text-center">No recipes found. Add a new one!</p>
-    {% endif %}
-
-    {% if is_paginated %}
-    <nav aria-label="Page navigation">
-        <ul class="pagination justify-content-center">
-            {% if page_obj.has_previous %}
-            <li class="page-item">
-                <a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo; Prev</a>
-            </li>
-            {% endif %}
-            {% if page_obj.has_next %}
-            <li class="page-item">
-                <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next &raquo;</a>
-            </li>
-            {% endif %}
-        </ul>
-    </nav>
-    {% endif %}
+      </div>
+    </div>
+  {% empty %}
+    <div class="col-12"><p>No recipes yet.</p></div>
+  {% endfor %}
 </div>
 {% endblock %}

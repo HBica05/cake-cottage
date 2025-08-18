@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<h1 class="mb-3">
+  {{ form.instance.pk|yesno:"Edit Recipe,Create Recipe" }}
+</h1>
+
+<form method="post" enctype="multipart/form-data" novalidate>
+  {% csrf_token %}
+
+  {% if form.non_field_errors %}
+    <div class="alert alert-danger">
+      {{ form.non_field_errors }}
+    </div>
+  {% endif %}
+
+  <div class="form-group">
+    <label for="{{ form.title.id_for_label }}">Title</label>
+    {{ form.title }}
+    {{ form.title.errors }}
+  </div>
+
+  <div class="form-group">
+    <label for="{{ form.description.id_for_label }}">Short description</label>
+    {{ form.description }}
+    {{ form.description.errors }}
+  </div>
+
+  <div class="form-group">
+    <label for="{{ form.ingredients.id_for_label }}">Ingredients</label>
+    {{ form.ingredients }}
+    {{ form.ingredients.errors }}
+  </div>
+
+  <div class="form-group">
+    <label for="{{ form.instructions.id_for_label }}">Instructions</label>
+    {{ form.instructions }}
+    {{ form.instructions.errors }}
+  </div>
+
+  <div class="form-group">
+    <label for="{{ form.category.id_for_label }}">Category</label>
+    {{ form.category }}
+    {{ form.category.errors }}
+  </div>
+
+  <div class="form-group">
+    <label for="{{ form.image.id_for_label }}">Image (optional)</label><br>
+    {{ form.image }}
+    {{ form.image.errors }}
+    {% if form.instance.pk and form.instance.image %}
+      <div class="mt-2">
+        <img src="{{ form.instance.image.url }}" class="img-fluid rounded" style="max-width:240px" alt="Current image">
+      </div>
+    {% endif %}
+  </div>
+
+  <div class="form-group">
+    <label for="{{ form.status.id_for_label }}">Status</label>
+    {{ form.status }}
+    {{ form.status.errors }}
+  </div>
+
+  <button class="btn btn-primary">Save</button>
+  <a class="btn btn-secondary" href="{% url 'recipe_list' %}">Cancel</a>
+</form>
+{% endblock %}
