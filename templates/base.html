@@ -1,113 +1,110 @@
 {% load static %}
 
-{% url 'home' as home_url %}
-{% url 'account_login' as login_url %}
-{% url 'account_signup' as signup_url %}
-{% url 'account_logout' as logout_url %}
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Little Cake Cottage</title>
+  <title>Little Cake Cottage</title>
+  <link rel="icon" type="image/svg+xml" href="{% static 'img/plate-wheat-solid.svg' %}">
 
-    <link rel="icon" type="image/svg+xml" href="{% static 'img/plate-wheat-solid.svg' %}">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&family=Lato:wght@300;700&display=swap" rel="stylesheet">
 
-    <!-- Google Fonts CSS -->
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;700&display=swap" rel="stylesheet">
+  <!-- Bootstrap 4 (CSS + matching JS at bottom) -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <!-- FontAwesome -->
+  <script src="https://kit.fontawesome.com/b365637acf.js" crossorigin="anonymous"></script>
 
-    <!-- FontAwesome -->
-    <script src="https://kit.fontawesome.com/b365637acf.js" crossorigin="anonymous"></script>
-
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="{% static 'css/index.css' %}">
-
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="{% static 'css/index.css' %}">
+  <link rel="stylesheet" href="{% static 'css/a11y.css' %}">
 </head>
-
 <body>
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-            <a class="navbar-brand" href="{% url 'recipe_list' %}">
-                <h1><i class="fa-solid fa-wheat-awn"></i> Little Cottage</h1>
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About Us</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact</a></li>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+      <a class="navbar-brand" href="{% url 'recipe_list' %}">
+        <h1 class="h4 m-0"><i class="fa-solid fa-wheat-awn"></i> Little Cottage</h1>
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-                    <!-- Product Categories -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Products</a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{% url 'recipe_list' %}?category=cakes">Cakes</a>
-                            <a class="dropdown-item" href="{% url 'recipe_list' %}?category=pastries">Pastries</a>
-                            <a class="dropdown-item" href="{% url 'recipe_list' %}?category=breads">Breads</a>
-                        </div>
-                    </li>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item"><a class="nav-link" href="{% url 'recipe_list' %}">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About Us</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact</a></li>
 
-                    <!-- Authentication Links -->
-                    {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.path == logout_url %}active{% endif %}" aria-current="page"
-                            href="{% url 'account_logout' %}">Logout</a>
-                    </li>
-                    {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.path == signup_url %}active{% endif %}" aria-current="page"
-                            href="{% url 'account_signup' %}">Register</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.path == login_url %}active{% endif %}" aria-current="page"
-                            href="{% url 'account_login' %}">Login</a>
-                    </li>
-                    {% endif %}
-                </ul>
+          <!-- Product Categories (match model choices: cake/pastry/bread) -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Products</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="{% url 'recipe_list' %}?category=cake">Cakes</a>
+              <a class="dropdown-item" href="{% url 'recipe_list' %}?category=pastry">Pastries</a>
+              <a class="dropdown-item" href="{% url 'recipe_list' %}?category=bread">Breads</a>
             </div>
+          </li>
+
+          <!-- Authentication (allauth) -->
+          {% if user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'account_logout' %}">Logout</a>
+            </li>
+          {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'account_signup' %}">Register</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'account_login' %}">Login</a>
+            </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Flash messages -->
+  <div class="container mt-3">
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% else %}alert-info{% endif %}" role="alert">
+          {{ message }}
         </div>
-    </nav>
+      {% endfor %}
+    {% endif %}
+  </div>
 
-    <!-- Page Content -->
-    <main class="container my-4">
-        {% if user.is_authenticated %}
-        <p class="text-end m-3">You are logged in as {{ user.username }}</p>
-        {% else %}
-        <p class="text-end m-3">You are not logged in</p>
-        {% endif %}
+  <!-- Page Content -->
+  <main class="container my-4">
+    {% if user.is_authenticated %}
+      <p class="text-right">You are logged in as {{ user.username }}</p>
+    {% else %}
+      <p class="text-right">You are not logged in</p>
+    {% endif %}
 
-        {% block content %}
-        <!-- Content Goes here -->
-        {% endblock content %}
-    </main>
+    {% block content %}{% endblock content %}
+  </main>
 
-    <!-- Footer -->
-    <footer class="footer mt-auto py-3 dark-bg">
-        <p class="m-0 text-center text-white">
-            {% block copyright %}
-            Copyright 2025 Little Cake Cottage
-            {% endblock %}
-        </p>
-    </footer>
+  <!-- Footer -->
+  <footer class="footer mt-auto py-3 bg-dark">
+    <p class="m-0 text-center text-white">
+      {% block copyright %}Copyright 2025 Little Cake Cottage{% endblock %}
+    </p>
+  </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous">
-    </script>
-    <script src="{% static 'js/script.js' %}"></script>
+  <!-- Bootstrap 4 JS (match CSS version) -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" crossorigin="anonymous"></script>
+
+  <script src="{% static 'js/script.js' %}"></script>
 </body>
-
 </html>
