@@ -9,18 +9,15 @@ import dj_database_url
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATES_DIR = BASE_DIR / "templates"
 
-# --- Core ---
 SECRET_KEY = os.environ.get("SECRET_KEY", "dev-secret-key")
 DEBUG = os.environ.get("DEBUG", "True") == "True"
 
 ALLOWED_HOSTS = [
-    "cake-cottage-app-6b5965171ab1.herokuapp.com",
-    "www.cake-cottage-app-6b5965171ab1.herokuapp.com",
+    "cake-cottage-app.herokuapp.com",
     "127.0.0.1",
     "localhost",
 ]
 
-# --- Apps ---
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -42,9 +39,8 @@ INSTALLED_APPS = [
 SITE_ID = 1
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
-LOGIN_URL = "login"  # your custom login view name
+LOGIN_URL = "account_login"  
 
-# Required when allauth is installed
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
     "allauth.account.auth_backends.AuthenticationBackend",
@@ -52,7 +48,6 @@ AUTHENTICATION_BACKENDS = [
 
 ACCOUNT_EMAIL_VERIFICATION = "none"
 
-# --- Middleware ---
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
@@ -67,7 +62,6 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "my_project.urls"
 
-# --- Templates ---
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
@@ -95,7 +89,7 @@ DATABASES = {
 
 # --- Security / Heroku ---
 CSRF_TRUSTED_ORIGINS = [
-    "https://cake-cottage-app-6b5965171ab1.herokuapp.com",
+    "https://cake-cottage-app.herokuapp.com",
     "https://*.herokuapp.com",
     "https://*.codeinstitute-ide.net",
 ]
