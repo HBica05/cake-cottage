@@ -1,22 +1,22 @@
-# recipes/views.py
+
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.core.mail import send_mail
+from django.db import models  # for Q()
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_POST
-from django.views import generic
 
 from .forms import CommentForm, RecipeForm
 from .models import Comment, Recipe, Like
 
 
-# ===== Home / Static =====
+# ---------- Static / Home ----------
 
 def index(request):
-    """Redirect home to the recipe list."""
+    """Redirect '/' to the main recipe list."""
     return redirect("recipe_list")
 
 
@@ -25,7 +25,7 @@ def about_view(request):
 
 
 def contact_view(request):
-    """Basic contact form handler (uses email backend from settings)."""
+    """Simple contact handler using settings.DEFAULT_FROM_EMAIL."""
     if request.method == "POST":
         name = request.POST.get("name", "").strip()
         email = request.POST.get("email", "").strip()
@@ -36,49 +36,65 @@ def contact_view(request):
             return redirect("contact")
 
         send_mail(
-            subject=f"New Contact Message from {name}",
+            subject=f"Contact from {name}",
             message=f"From: {name} <{email}>\n\n{message}",
             from_email=settings.DEFAULT_FROM_EMAIL,
             recipient_list=[settings.DEFAULT_FROM_EMAIL],
-            fail_silently=False,
         )
-        messages.success(request, "Your message has been sent successfully!")
+        messages.success(request, "Your message has been sent.")
         return redirect("contact")
 
     return render(request, "recipes/contact.html")
 
 
-# ===== Recipes (List / Detail) =====
-
-class RecipeList(generic.ListView):
-    """Optional CBV list if you want pagination."""
-    queryset = Recipe.objects.filter(status=1)
-    template_name = "recipes/recipe_list.html"
-    paginate_by = 6
-
+# ---------- Recipes: List / Detail ----------
 
 def recipe_list(request):
-    """Function-based list (simple)."""
-    recipes = Recipe.objects.filter(status=1)
-    return render(request, "recipes/recipe_list.html", {"recipes": recipes})
+    """
+    Show published recipes only.
+    Filters:
+      - ?category=cake|pastry|bread
+      - ?q=search phrase
+    """
+    qs = Recipe.objects.filter(status=1)
+
+    category = request.GET.get("category")
+    if category in {"cake", "pastry", "bread"}:
+        qs = qs.filter(category=category)
+
+    q = request.GET.get("q", "").strip()
+    if q:
+        qs = qs.filter(
+            models.Q(title__icontains=q)
+            | models.Q(description__icontains=q)
+            | models.Q(ingredients__icontains=q)
+        )
+
+    context = {"recipes": qs, "current_category": category, "q": q}
+    return render(request, "recipes/recipe_list.html", context)
 
 
 def recipe_detail(request, slug):
-    """Show a published recipe and the comment form."""
+    """Recipe page with live comment post support."""
     recipe = get_object_or_404(Recipe, slug=slug, status=1)
     form = CommentForm(request.POST or None)
+
     if request.method == "POST" and request.user.is_authenticated and form.is_valid():
-        # Post a comment from the detail page
         comment = form.save(commit=False)
         comment.user = request.user
         comment.recipe = recipe
         comment.save()
         messages.success(request, "Comment posted.")
         return redirect("recipe_detail", slug=slug)
-    return render(request, "recipes/recipe_detail.html", {"recipe": recipe, "form": form})
+
+    return render(
+        request,
+        "recipes/recipe_detail.html",
+        {"recipe": recipe, "form": form},
+    )
 
 
-# ===== Recipes (Create / Edit / Delete) =====
+# ---------- Recipes: Create / Edit / Delete ----------
 
 @login_required
 def recipe_create(request):
@@ -87,7 +103,7 @@ def recipe_create(request):
         recipe = form.save(commit=False)
         recipe.author = request.user
         recipe.save()
-        messages.success(request, "Recipe created successfully!")
+        messages.success(request, "Recipe created.")
         return redirect("recipe_detail", slug=recipe.slug)
     return render(request, "recipes/recipe_form.html", {"form": form})
 
@@ -98,7 +114,7 @@ def recipe_edit(request, slug):
     form = RecipeForm(request.POST or None, request.FILES or None, instance=recipe)
     if request.method == "POST" and form.is_valid():
         form.save()
-        messages.success(request, "Recipe updated successfully!")
+        messages.success(request, "Recipe updated.")
         return redirect("recipe_detail", slug=recipe.slug)
     return render(request, "recipes/recipe_form.html", {"form": form, "recipe": recipe})
 
@@ -110,26 +126,25 @@ def recipe_delete(request, slug):
         recipe.delete()
         messages.info(request, "Recipe deleted.")
         return redirect("recipe_list")
-    # If GET, show a confirm page
     return render(request, "recipes/recipe_confirm_delete.html", {"recipe": recipe})
 
 
-# ===== Likes =====
+# ---------- Likes ----------
 
 @login_required
 @require_POST
 def toggle_like(request, slug):
     recipe = get_object_or_404(Recipe, slug=slug, status=1)
     like, created = Like.objects.get_or_create(recipe=recipe, user=request.user)
-    if not created:
+    if created:
+        messages.success(request, "Liked!")
+    else:
         like.delete()
         messages.info(request, "Like removed.")
-    else:
-        messages.success(request, "Liked!")
     return redirect("recipe_detail", slug=slug)
 
 
-# ===== Comments (separate add/edit/delete endpoints) =====
+# ---------- Comments (separate endpoints) ----------
 
 @login_required
 @require_POST
@@ -141,9 +156,9 @@ def add_comment(request, slug):
         comment.user = request.user
         comment.recipe = recipe
         comment.save()
-        messages.success(request, "Comment added successfully!")
+        messages.success(request, "Comment added.")
     else:
-        messages.error(request, "There was a problem with your comment.")
+        messages.error(request, "Please fix the errors in your comment.")
     return redirect("recipe_detail", slug=recipe.slug)
 
 
@@ -151,13 +166,13 @@ def add_comment(request, slug):
 def edit_comment(request, comment_id):
     comment = get_object_or_404(Comment, id=comment_id)
     if request.user != comment.user:
-        messages.error(request, "You are not authorized to edit this comment.")
+        messages.error(request, "You are not allowed to edit this comment.")
         return redirect("recipe_detail", slug=comment.recipe.slug)
 
     form = CommentForm(request.POST or None, instance=comment)
     if request.method == "POST" and form.is_valid():
         form.save()
-        messages.success(request, "Comment updated successfully!")
+        messages.success(request, "Comment updated.")
         return redirect("recipe_detail", slug=comment.recipe.slug)
     return render(request, "comments/edit_comment.html", {"form": form, "comment": comment})
 
@@ -169,11 +184,11 @@ def delete_comment(request, comment_id):
         comment.delete()
         messages.success(request, "Comment deleted.")
     else:
-        messages.error(request, "You are not authorized to delete this comment.")
+        messages.error(request, "You are not allowed to delete this comment.")
     return redirect("recipe_detail", slug=comment.recipe.slug)
 
 
-# ===== Auth (simple custom handlers) =====
+# ---------- Minimal custom auth (optional if using allauth) ----------
 
 def register(request):
     if request.method == "POST":
@@ -181,7 +196,7 @@ def register(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            messages.success(request, "Account created successfully!")
+            messages.success(request, "Account created.")
             return redirect("recipe_list")
     else:
         form = UserCreationForm()
@@ -195,7 +210,7 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user:
             login(request, user)
-            messages.success(request, "Logged in successfully!")
+            messages.success(request, "Logged in.")
             return redirect("recipe_list")
         messages.error(request, "Invalid username or password.")
     return render(request, "recipes/login.html")
@@ -204,5 +219,5 @@ def login_view(request):
 @login_required
 def logout_view(request):
     logout(request)
-    messages.success(request, "Logged out successfully!")
+    messages.success(request, "Logged out.")
     return redirect("login")
