@@ -3,34 +3,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Little Cake Cottage</title>
-  <link rel="icon" type="image/svg+xml" href="{% static 'img/plate-wheat-solid.svg' %}">
+
+  <link rel="icon" type="image/svg+xml" href="{% static 'img/plate-wheat-solid.svg' %}" />
 
   <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&family=Lato:wght@300;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&family=Lato:wght@300;700&display=swap" rel="stylesheet" />
 
-  <!-- Bootstrap 4 (CSS + matching JS at bottom) -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <!-- Bootstrap 4 (CSS) -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" />
 
   <!-- FontAwesome -->
   <script src="https://kit.fontawesome.com/b365637acf.js" crossorigin="anonymous"></script>
 
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="{% static 'css/index.css' %}">
-  <link rel="stylesheet" href="{% static 'css/a11y.css' %}">
+  <!-- Your CSS -->
+  <link rel="stylesheet" href="{% static 'css/index.css' %}" />
+  {# Removed a11y.css to prevent 404s. Add it back when the file exists. #}
 </head>
 <body>
 
+  <!-- Skip link for keyboard users -->
+  <a class="sr-only sr-only-focusable" href="#main">Skip to content</a>
+
   <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light" role="navigation" aria-label="Main navigation">
     <div class="container">
       <a class="navbar-brand" href="{% url 'recipe_list' %}">
-        <h1 class="h4 m-0"><i class="fa-solid fa-wheat-awn"></i> Little Cottage</h1>
+        <span class="h4 m-0"><i class="fa-solid fa-wheat-awn"></i> Little Cottage</span>
       </a>
+
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
               aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -38,35 +42,57 @@
 
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item"><a class="nav-link" href="{% url 'recipe_list' %}">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About Us</a></li>
-          <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact</a></li>
 
-          <!-- Product Categories (match model choices: cake/pastry/bread) -->
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Products</a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="{% url 'recipe_list' %}?category=cake">Cakes</a>
-              <a class="dropdown-item" href="{% url 'recipe_list' %}?category=pastry">Pastries</a>
-              <a class="dropdown-item" href="{% url 'recipe_list' %}?category=bread">Breads</a>
-            </div>
+          <!-- Top-level links -->
+          <li class="nav-item {% if request.resolver_match.url_name in 'recipe_list home' %}active{% endif %}">
+            <a class="nav-link" href="{% url 'recipe_list' %}">Home</a>
+          </li>
+          <li class="nav-item {% if request.resolver_match.url_name == 'about' %}active{% endif %}">
+            <a class="nav-link" href="{% url 'about' %}">About Us</a>
+          </li>
+          <li class="nav-item {% if request.resolver_match.url_name == 'contact' %}active{% endif %}">
+            <a class="nav-link" href="{% url 'contact' %}">Contact</a>
           </li>
 
-          <!-- Authentication (allauth) -->
+          <!-- Product Categories -->
+          {% with cat=request.GET.category|default:current_category %}
+          <li class="nav-item dropdown {% if cat in 'cake pastry bread' %}active{% endif %}">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Products
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item {% if cat == 'cake' %}active{% endif %}"   href="{% url 'recipe_list' %}?category=cake">Cakes</a>
+              <a class="dropdown-item {% if cat == 'pastry' %}active{% endif %}" href="{% url 'recipe_list' %}?category=pastry">Pastries</a>
+              <a class="dropdown-item {% if cat == 'bread' %}active{% endif %}"  href="{% url 'recipe_list' %}?category=bread">Breads</a>
+            </div>
+          </li>
+          {% endwith %}
+
+          <!-- Auth -->
           {% if user.is_authenticated %}
             <li class="nav-item">
               <a class="nav-link" href="{% url 'account_logout' %}">Logout</a>
             </li>
           {% else %}
-            <li class="nav-item">
+            <li class="nav-item {% if request.resolver_match.url_name == 'account_signup' %}active{% endif %}">
               <a class="nav-link" href="{% url 'account_signup' %}">Register</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item {% if request.resolver_match.url_name == 'account_login' %}active{% endif %}">
               <a class="nav-link" href="{% url 'account_login' %}">Login</a>
             </li>
           {% endif %}
         </ul>
+
+        <!-- Search (preserves current category) -->
+        <form class="form-inline ml-3 my-2 my-lg-0" method="get" action="{% url 'recipe_list' %}">
+          {% if request.GET.category or current_category %}
+            <input type="hidden" name="category" value="{{ request.GET.category|default:current_category }}">
+          {% endif %}
+          <input class="form-control mr-sm-2" type="search" name="q" placeholder="Search recipes…" value="{{ q }}" aria-label="Search">
+          <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Search</button>
+        </form>
+
       </div>
     </div>
   </nav>
@@ -83,7 +109,7 @@
   </div>
 
   <!-- Page Content -->
-  <main class="container my-4">
+  <main id="main" class="container my-4" tabindex="-1">
     {% if user.is_authenticated %}
       <p class="text-right">You are logged in as {{ user.username }}</p>
     {% else %}
@@ -100,7 +126,7 @@
     </p>
   </footer>
 
-  <!-- Bootstrap 4 JS (match CSS version) -->
+  <!-- Bootstrap 4 JS -->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" crossorigin="anonymous"></script>
