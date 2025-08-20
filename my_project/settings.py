@@ -13,7 +13,8 @@ SECRET_KEY = os.environ.get("SECRET_KEY", "dev-secret-key")
 DEBUG = os.environ.get("DEBUG", "True") == "True"
 
 ALLOWED_HOSTS = [
-    "cake-cottage-app.herokuapp.com",
+    "https://cake-cottage-app-6b5965171ab1.herokuapp.com",
+    "cake-cottage.com", "www.cake-cottage.com", 
     "127.0.0.1",
     "localhost",
 ]
@@ -80,16 +81,16 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "my_project.wsgi.application"
 
-# --- Database ---
 DATABASES = {
     "default": dj_database_url.parse(
         os.environ.get("DATABASE_URL", f"sqlite:///{BASE_DIR / 'db.sqlite3'}")
     )
 }
 
-# --- Security / Heroku ---
 CSRF_TRUSTED_ORIGINS = [
-    "https://cake-cottage-app.herokuapp.com",
+    "https://cake-cottage-app-6b5965171ab1.herokuapp.com",
+    "https://cake-cottage.com",
+    "https://www.cake-cottage.com",
     "https://*.herokuapp.com",
     "https://*.codeinstitute-ide.net",
 ]
@@ -98,16 +99,12 @@ SESSION_COOKIE_SECURE = not DEBUG
 CSRF_COOKIE_SECURE = not DEBUG
 SECURE_SSL_REDIRECT = not DEBUG
 
-# --- I18N ---
 LANGUAGE_CODE = "en-us"
 TIME_ZONE = "UTC"
 USE_I18N = True
 USE_TZ = True
 
-# --- Static / Media ---
-# Source directory you edit:
 STATICFILES_DIRS = [BASE_DIR / "static"]
-# Destination for collectstatic (Heroku serves this via WhiteNoise):
 STATIC_ROOT = BASE_DIR / "staticfiles"
 STATIC_URL = "/static/"
 
@@ -116,11 +113,9 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
-# --- Email (safe defaults for local; override on Heroku if needed) ---
 EMAIL_BACKEND = os.environ.get(
     "EMAIL_BACKEND", "django.core.mail.backends.console.EmailBackend"
 )
 DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL", "noreply@example.com")
 
-# --- Misc ---
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
