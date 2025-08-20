@@ -13,10 +13,10 @@ SECRET_KEY = os.environ.get("SECRET_KEY", "dev-secret-key")
 DEBUG = os.environ.get("DEBUG", "True") == "True"
 
 ALLOWED_HOSTS = [
-    "https://cake-cottage-app-6b5965171ab1.herokuapp.com",
-    "cake-cottage.com", "www.cake-cottage.com", 
+    "cake-cottage-app-6b5965171ab1.herokuapp.com",
     "127.0.0.1",
     "localhost",
+    ".herokuapp.com", 
 ]
 
 INSTALLED_APPS = [
@@ -88,10 +88,8 @@ DATABASES = {
 }
 
 CSRF_TRUSTED_ORIGINS = [
-    # "https://cake-cottage-app-6b5965171ab1.herokuapp.com",
-    "cake-cottage-app.herokuapp.com",
-    "https://cake-cottage.com",
-    "https://www.cake-cottage.com",
+    "https://cake-cottage-app.herokuapp.com",    
+    "https://cake-cottage-app-6b5965171ab1.herokuapp.com",
     "https://*.herokuapp.com",
     "https://*.codeinstitute-ide.net",
 ]
