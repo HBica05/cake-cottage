@@ -13,8 +13,6 @@ from .forms import CommentForm, RecipeForm
 from .models import Comment, Recipe, Like
 
 
-# ---------- Static / Home ----------
-
 def index(request):
     """Redirect '/' to the main recipe list."""
     return redirect("recipe_list")
@@ -46,8 +44,6 @@ def contact_view(request):
 
     return render(request, "recipes/contact.html")
 
-
-# ---------- Recipes: List / Detail ----------
 
 def recipe_list(request):
     """
@@ -93,9 +89,6 @@ def recipe_detail(request, slug):
         {"recipe": recipe, "form": form},
     )
 
-
-# ---------- Recipes: Create / Edit / Delete ----------
-
 @login_required
 def recipe_create(request):
     form = RecipeForm(request.POST or None, request.FILES or None)
@@ -129,8 +122,6 @@ def recipe_delete(request, slug):
     return render(request, "recipes/recipe_confirm_delete.html", {"recipe": recipe})
 
 
-# ---------- Likes ----------
-
 @login_required
 @require_POST
 def toggle_like(request, slug):
@@ -143,8 +134,6 @@ def toggle_like(request, slug):
         messages.info(request, "Like removed.")
     return redirect("recipe_detail", slug=slug)
 
-
-# ---------- Comments (separate endpoints) ----------
 
 @login_required
 @require_POST
@@ -187,8 +176,6 @@ def delete_comment(request, comment_id):
         messages.error(request, "You are not allowed to delete this comment.")
     return redirect("recipe_detail", slug=comment.recipe.slug)
 
-
-# ---------- Minimal custom auth (optional if using allauth) ----------
 
 def register(request):
     if request.method == "POST":

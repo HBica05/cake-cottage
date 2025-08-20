@@ -1,5 +1,4 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,10 +18,13 @@
   <!-- FontAwesome -->
   <script src="https://kit.fontawesome.com/b365637acf.js" crossorigin="anonymous"></script>
 
-  <!-- Your CSS -->
+  <!-- Site CSS -->
   <link rel="stylesheet" href="{% static 'css/index.css' %}" />
 </head>
 <body>
+
+  <!-- Global dark overlay (sits above page bg, below content) -->
+  <div class="page-dimmer" aria-hidden="true"></div>
 
   <!-- Skip link -->
   <a class="sr-only sr-only-focusable" href="#main">Skip to content</a>
@@ -41,7 +43,6 @@
 
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto">
-
           <!-- Top-level links -->
           <li class="nav-item {% if request.resolver_match.url_name in 'recipe_list home' %}active{% endif %}">
             <a class="nav-link" href="{% url 'recipe_list' %}">Home</a>
@@ -91,39 +92,41 @@
           <input class="form-control mr-sm-2" type="search" name="q" placeholder="Search recipes…" value="{{ q }}" aria-label="Search">
           <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Search</button>
         </form>
-
       </div>
     </div>
   </nav>
 
-  <!-- Flash messages -->
-  <div class="container mt-3">
-    {% if messages %}
-      {% for message in messages %}
-        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% else %}alert-info{% endif %}" role="alert">
-          {{ message }}
-        </div>
-      {% endfor %}
-    {% endif %}
+  <!-- Page content wrapper (kept above the overlay) -->
+  <div class="site-content">
+    <!-- Flash messages -->
+    <div class="container mt-3">
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert {% if message.tags %}alert-{{ message.tags }}{% else %}alert-info{% endif %}" role="alert">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+
+    <!-- Main -->
+    <main id="main" class="container my-4" tabindex="-1">
+      {% if user.is_authenticated %}
+        <p class="text-right">You are logged in as {{ user.username }}</p>
+      {% else %}
+        <p class="text-right">You are not logged in</p>
+      {% endif %}
+
+      {% block content %}{% endblock content %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer mt-auto py-3 bg-dark">
+      <p class="m-0 text-center text-white">
+        {% block copyright %}Copyright 2025 Little Cake Cottage{% endblock %}
+      </p>
+    </footer>
   </div>
-
-  <!-- Page Content -->
-  <main id="main" class="container my-4" tabindex="-1">
-    {% if user.is_authenticated %}
-      <p class="text-right">You are logged in as {{ user.username }}</p>
-    {% else %}
-      <p class="text-right">You are not logged in</p>
-    {% endif %}
-
-    {% block content %}{% endblock content %}
-  </main>
-
-  <!-- Footer -->
-  <footer class="footer mt-auto py-3 bg-dark">
-    <p class="m-0 text-center text-white">
-      {% block copyright %}Copyright 2025 Little Cake Cottage{% endblock %}
-    </p>
-  </footer>
 
   <!-- Bootstrap JS -->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>

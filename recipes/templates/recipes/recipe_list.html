@@ -1,25 +1,113 @@
 {% extends "base.html" %}
 {% load static %}
+
 {% block content %}
-<h1 class="mb-3">All Recipes</h1>
-<div class="row">
-  {% for recipe in recipes %}
-    <div class="col-12 col-sm-6 col-lg-4 mb-4">
-      <div class="card h-100">
-        {% if recipe.image %}
-          <img class="card-img-top" src="{{ recipe.image.url }}" alt="{{ recipe.title }}">
+  <section class="hero mb-4 position-relative overflow-hidden">
+    <div class="container hero-content">
+      <h2 class="mb-2">
+        {% if current_category %}
+          {{ current_category|title }} Recipes
         {% else %}
-          <img class="card-img-top" src="{% static 'img/placeholder.jpg' %}" alt="No image">
+          Little Cake Cottage
         {% endif %}
-        <div class="card-body d-flex flex-column">
-          <h5 class="card-title">{{ recipe.title }}</h5>
-          <p class="card-text">{{ recipe.excerpt|default:recipe.description|truncatechars:110 }}</p>
-          <a class="btn btn-primary mt-auto" href="{% url 'recipe_detail' recipe.slug %}">View recipe</a>
-        </div>
-      </div>
+      </h2>
+      <p class="lead mb-3">
+        Sweet bakes, flaky pastries, and cozy breads — all shared by our community.
+      </p>
+
+      <form class="form-inline justify-content-center" method="get" action="{% url 'recipe_list' %}">
+        {% if current_category %}
+          <input type="hidden" name="category" value="{{ current_category }}">
+        {% endif %}
+        <input class="form-control mr-2 mb-2" type="search" name="q" placeholder="Search recipes…" value="{{ q }}">
+        <button class="btn btn-primary mb-2" type="submit">Search</button>
+        {% if user.is_authenticated %}
+          <a class="btn btn-light ml-2 mb-2" href="{% url 'recipe_create' %}">+ Add recipe</a>
+        {% endif %}
+      </form>
     </div>
-  {% empty %}
-    <div class="col-12"><p>No recipes yet.</p></div>
-  {% endfor %}
-</div>
+  </section>
+
+  <!-- Category Pills with Glass Overlay -->
+  <div class="container mb-4 text-center">
+    <div class="glass-nav d-inline-block px-3 py-2">
+      <ul class="nav nav-pills justify-content-center mb-0">
+        <li class="nav-item">
+          <a class="nav-link {% if not current_category %}active{% endif %}"
+             href="{% url 'recipe_list' %}{% if q %}?q={{ q }}{% endif %}">
+             All
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if current_category == 'cake' %}active{% endif %}"
+             href="{% url 'recipe_list' %}?category=cake{% if q %}&q={{ q }}{% endif %}">
+             Cakes
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if current_category == 'pastry' %}active{% endif %}"
+             href="{% url 'recipe_list' %}?category=pastry{% if q %}&q={{ q }}{% endif %}">
+             Pastries
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if current_category == 'bread' %}active{% endif %}"
+             href="{% url 'recipe_list' %}?category=bread{% if q %}&q={{ q }}{% endif %}">
+             Breads
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="container mb-3 text-center">
+    {% if q %}
+      <p class="text-muted mb-0">
+        Showing results for “{{ q }}”
+        {% if current_category %}in {{ current_category|title }}{% endif %}
+      </p>
+    {% endif %}
+  </div>
+
+  <div class="container">
+    {% if recipes %}
+      <div class="row">
+        {% for r in recipes %}
+          <div class="col-12 col-sm-6 col-lg-4 mb-4">
+            <div class="card h-100">
+              {% if r.image %}
+                <img class="card-img-top" src="{{ r.image.url }}" alt="{{ r.title }}">
+              {% else %}
+                <img class="card-img-top" src="{% static 'img/placeholder.jpg' %}" alt="No image">
+              {% endif %}
+
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title">{{ r.title }}</h5>
+                <p class="small text-muted mb-2">
+                  {{ r.get_category_display }} • {{ r.created_at|date:"M d, Y" }}
+                </p>
+                <p class="card-text">
+                  {{ r.excerpt|default:r.description|truncatechars:120 }}
+                </p>
+                <a class="btn btn-primary mt-auto" href="{% url 'recipe_detail' r.slug %}">
+                  View recipe
+                </a>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="empty-state text-center mx-auto">
+        <h3 class="mb-2">No recipes yet</h3>
+        <p class="text-muted mb-3">
+          Try another search or switch categories.
+          {% if user.is_authenticated %}Or be the first to add one!{% endif %}
+        </p>
+        {% if user.is_authenticated %}
+          <a class="btn btn-primary" href="{% url 'recipe_create' %}">Create your first recipe</a>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
 {% endblock %}

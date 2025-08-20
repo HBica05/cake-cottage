@@ -1,306 +1,219 @@
 /* =======================
-   GENERAL STYLING
+   BASE / RESET
    ======================= */
-   body {
-    background-image: url('../img/cake.jpeg');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-attachment: fixed;
-    background-size: cover;
-    font-family: 'Roboto', sans-serif;
-}
-
-/* Ensure the page fills at least the viewport height */
 html, body {
-    height: 100%;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
+  height: 100%;
+  margin: 0;
 }
 
-/* Push content area to take up remaining space */
-main {
-    flex: 1;
+body {
+  position: relative;
+  font-family: 'Roboto', sans-serif;
+  color: #302f2f;
+  background: #faf7f5;
 }
 
-/* Typography */
+main { min-height: 60vh; }
+
+/* Headings */
 h1, h2, h3 {
-    color: #d27d5f;
-    font-family: 'Comic Sans MS', 'Arial', sans-serif;
-    font-weight: bold;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  color: #d27d5f;
+  font-family: 'Lato', 'Arial', sans-serif;
+  font-weight: 700;
 }
 
-/* Overlay */
-.opaque-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+/* Focus outlines for accessibility */
+a:focus,
+button:focus,
+input:focus,
+textarea:focus,
+.select:focus {
+  outline: 3px solid #0a7;
+  outline-offset: 2px;
 }
 
 /* =======================
-   NAVIGATION BAR
+   NAVBAR (Bootstrap)
    ======================= */
-header {
-    background-color: rgba(255, 194, 209, 0.6);
-    padding: 15px 0;
-    position: fixed;
-    width: 100%;
-    z-index: 10;
-}
+.navbar-light .navbar-brand,
+.navbar-light .nav-link { color: #302f2f; }
 
-header .container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-/* Navigation Links */
-header nav ul {
-    list-style: none;
-    display: flex;
-    gap: 20px;
-}
-
-header nav ul li {
-    font-size: 1.2rem;
-}
-
-header nav ul li a {
-    text-decoration: none;
-    color: #302f2f;
-    font-weight: 500;
-    text-transform: uppercase;
-    transition: color 0.3s ease-in-out;
-}
-
-header nav ul li a:hover {
-    color: #d27d5f;
-    text-decoration: underline;
-}
-
-/* Mobile Navigation */
-.menu-icon {
-   display: none;
-   cursor: pointer;
-}
-
-@media screen and (max-width: 768px) {
-    .menu-icon {
-        display: block;
-    }
-
-    header nav ul {
-        display: none;
-        flex-direction: column;
-        width: 100%;
-        text-align: center;
-    }
-
-    header nav ul.active {
-        display: flex;
-    }
-}
+.navbar-light .nav-link:hover,
+.navbar-light .dropdown-item:hover,
+.navbar-light .nav-link:focus,
+.navbar-light .dropdown-item:focus { text-decoration: underline; }
 
 /* =======================
-   HERO SECTION
+   HERO (optional homepage banner)
    ======================= */
 .hero {
-    background: url('../img/bakery-banner.jpg') no-repeat center center/cover;
-    height: 400px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    color: #fff;
-    padding: 20px;
+  background: url('../img/dark-banner.jpg') no-repeat center / cover;
+  min-height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+  padding: 2rem 1rem;
+  border-radius: .5rem;
 }
 
 .hero-content h2 {
-    font-size: 3rem;
-    color: #f8f0e3;
+  font-size: 2.25rem;
+  color: #f8f0e3;
+  margin-bottom: .5rem;
+}
+.hero-content p { font-size: 1.125rem; margin: 0; }
+
+/* =======================
+   RECIPE CARDS / LIST
+   ======================= */
+.card {
+  border: 0;
+  border-radius: .75rem;
+  box-shadow: 0 10px 18px rgba(0,0,0,.06);
+}
+.card-img-top {
+  object-fit: cover;
+  height: 220px;
+  border-top-left-radius: .75rem;
+  border-top-right-radius: .75rem;
+}
+.card-title { color: #302f2f; font-weight: 700; }
+
+.btn-primary {
+  background-color: #d27d5f;
+  border-color: #d27d5f;
+}
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: #b55d42;
+  border-color: #b55d42;
 }
 
-.hero-content p {
-    font-size: 1.5rem;
-    margin-bottom: 20px;
+/* Empty state */
+.empty-state {
+  padding: 2rem;
+  background: #fff;
+  border-radius: .5rem;
+  box-shadow: 0 8px 14px rgba(0,0,0,.05);
 }
 
 /* =======================
-   PRODUCTS SECTION
+   ABOUT / CONTACT
    ======================= */
-.products {
-    padding: 50px 0;
-    background-color: #ffffff;
-    text-align: center;
-}
+.about { padding: 3rem 0; background-color: #f8f0e3; text-align: center; }
+.about p { font-size: 1.1rem; max-width: 800px; margin: 1rem auto; }
 
-.product-list {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    gap: 30px;
-}
-
-.product {
-    background-color: #f7f3f0;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 30%;
-    text-align: center;
-}
-
-.product img {
-    width: 100%;
-    height: 400px;
-    object-fit: cover;
-    border-radius: 8px;
-    margin-bottom: 15px;
-}
-
-.product h3 {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
-}
-
-/* =======================
-   ABOUT US SECTION
-   ======================= */
-.about {
-    padding: 50px 0;
-    background-color: #f8f0e3;
-    text-align: center;
-}
-
-.about p {
-    font-size: 1.3rem;
-    max-width: 800px;
-    margin: 20px auto;
-}
-
-/* =======================
-   CONTACT SECTION
-   ======================= */
-.contact {
-    padding: 50px 0;
-    background-color: #fff;
-    text-align: center;
-}
-
-.contact h2 {
-    font-size: 2.5rem;
-    margin-bottom: 10px;
-    color: #d27d5f;
-}
-
-.contact p {
-    font-size: 1.3rem;
-    margin-bottom: 20px;
-}
-
-.contact form {
-    max-width: 600px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.contact label {
-    font-weight: bold;
-}
-
-.contact input, 
-.contact textarea {
-    padding: 10px;
-    font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
+.contact { padding: 3rem 0; background-color: #fff; text-align: center; }
+.contact form { max-width: 600px; margin: 0 auto; }
+.contact .form-control { border-radius: .5rem; border-color: #e0d8d3; }
 .contact button {
-    padding: 12px 20px;
-    background-color: #d27d5f;
-    color: #fff;
-    font-size: 1.1rem;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  padding: .75rem 1.25rem;
+  background-color: #d27d5f;
+  color: #fff;
+  border: none;
+  border-radius: .5rem;
+  cursor: pointer;
+  transition: background-color .2s ease;
 }
-
-.contact button:hover {
-    background-color: #b55d42;
-}
+.contact button:hover,
+.contact button:focus { background-color: #b55d42; }
 
 /* =======================
-   FOOTER SECTION
+   FOOTER
    ======================= */
-footer {
-    background-color: #f1c0b9;
-    padding: 20px 0;
-    text-align: center;
-    position: relative;
-    bottom: 0;
-    width: 100%;
-}
-
-footer p {
-    color: #fff;
-    font-size: 1rem;
-}
+footer.footer { background-color: #2f2b2a; }
+footer.footer p { color: #fff; margin: 0; }
 
 /* =======================
-   RESPONSIVE DESIGN
+   RESPONSIVE
    ======================= */
 @media (max-width: 768px) {
-    .product-list {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .product {
-        width: 80%;
-    }
-
-    .hero-content h2 {
-        font-size: 2.5rem;
-    }
-
-    .hero-content p {
-        font-size: 1.1rem;
-    }
+  .hero-content h2 { font-size: 1.8rem; }
+  .hero-content p  { font-size: 1rem; }
 }
 
-@media (max-width: 480px) {
-    .hero {
-        height: 300px;
-    }
+/* =========================================================
+   RECIPE DETAIL — OVERLAY + GLASS CARDS
+   ========================================================= */
+.recipe-detail {
+  position: relative;
+  color: #fff;
+  padding: 2rem 0;
+}
+.recipe-detail::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 8, 7, 0.68);
+}
+.recipe-detail > * { position: relative; z-index: 2; }
 
-    .hero-content h2 {
-        font-size: 2rem;
-    }
+.recipe-detail h1,
+.recipe-detail h2,
+.recipe-detail h3,
+.recipe-detail p,
+.recipe-detail li {
+  color: #fff !important;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.9);
+}
 
-    .hero-content p {
-        font-size: 1rem;
-    }
+/* Glass Cards */
+.glass-card {
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.45);
+  margin-bottom: 1.25rem;
+}
+.glass-card h1,
+.glass-card h2,
+.glass-card h3 {
+  color: #ffbda0;
+  text-shadow: 0px 2px 8px rgba(0,0,0,0.95);
+}
+.glass-card .text-muted { color: rgba(255,255,255,0.85) !important; }
+.glass-card .btn-primary { background-color: #ff8e6e; border-color: #ff8e6e; }
+.glass-card .btn-primary:hover,
+.glass-card .btn-primary:focus { background-color: #ff7a54; border-color: #ff7a54; }
 
-    .product img {
-        height: 200px;
-    }
+/* Utility */
+.pre-wrap { white-space: pre-line; }
 
-    .product {
-        width: 90%;
-    }
+.glass-card .pre-wrap,
+.glass-card p,
+.glass-card li {
+  color: #fff !important;
+}
 
-    .about p {
-        font-size: 1rem;
-    }
+
+@media (max-width: 576px) {
+  .glass-card { padding: .85rem 1rem; }
+}
+
+/* ================================
+   Glass Nav Overlay (category pills)
+   ================================ */
+.glass-nav {
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+}
+
+.glass-nav .nav-link {
+  color: #fff !important;
+  font-weight: 600;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.85);
+}
+
+.glass-nav .nav-link.active {
+  background-color: #ff8e6e !important;
+  border-radius: 8px;
 }
