@@ -21,10 +21,10 @@ At Cake Cottage, you can:
   - [🔠 Typography](#-typography)
   - [🔹 Existing Features](#-existing-features)
     - [👤 User Authentication \& Profile Management](#-user-authentication--profile-management)
-    - [🍰 Recipe Management](#-recipe-management)
     - [🎉 Community Engagement](#-community-engagement)
 - [📖 About the Website](#-about-the-website)
   - [🚀 Features](#-features)
+  - [🎨 Design Process](#-design-process)
   - [Features Left to Implement](#features-left-to-implement)
   - [🛠 Technologies Used](#-technologies-used)
     - [🖥️ Front-End Technologies](#️-front-end-technologies)
@@ -37,6 +37,8 @@ At Cake Cottage, you can:
     - [💬 Comment Endpoints](#-comment-endpoints)
     - [❤️ Like Endpoints](#️-like-endpoints)
   - [🔒 User Authentication](#-user-authentication)
+  - [Testing](#testing)
+    - [Lighthouse performance:](#lighthouse-performance)
   - [🌍 Deployment](#-deployment-1)
   - [✅ Feel Free to Explore!](#-feel-free-to-explore)
 - [📌 Getting Started](#-getting-started)
@@ -77,9 +79,7 @@ At Cake Cottage, you can:
 - :white_check_mark: **Receive notifications for reported content** to take immediate action against inappropriate recipes or comments.
 
 ## 🔠 Typography
-We have carefully selected typography that complements the aesthetic of Cake Cottage:
-
-[Google Fonts](https://fonts.google.com/) - Custom fonts are used to create a welcoming and warm feel for users.
+We use [Google Fonts](https://fonts.google.com/) to create a warm and welcoming aesthetic.
     
 ## 🔹 Existing Features
 ### 👤 User Authentication & Profile Management
@@ -93,27 +93,9 @@ We have carefully selected typography that complements the aesthetic of Cake Cot
 
 ✔️ **Delete Account** – Users can remove their entire account along with their recipes.
 
-### 🍰 Recipe Management
-
-✔️ View All Desserts – A collection of desserts displayed with pagination.
-
-✔️ Search Desserts – Users can search by category, name, or specific ingredients.
-
-✔️ Add a Recipe – Users can submit their own recipes with images and descriptions.
-
-✔️ View a Recipe – Detailed view of each recipe with ingredients and instructions.
-
-✔️ Update a Recipe – Users can edit their own recipes.
-
-✔️ Delete a Recipe – Users can remove their own recipes from the database.
-
-✔️ Save to Favorites – Users can save recipes for quick access later.
-
 ### 🎉 Community Engagement
 
 ✔️ Like & Comment on Recipes – Users can interact with others by liking and commenting on recipes.
-
-✔️ Share Recipes – Users can share their favorite recipes via social media.
 
 🛠️ Admin Features
 
@@ -124,33 +106,32 @@ We have carefully selected typography that complements the aesthetic of Cake Cot
 ✔️ Track Site Activity – Admin can view analytics on user interactions.
 
 **Add a Recipe**
-- [**C**RUD] Create or 'add' a new recipe. Defensive programming in place means users must adhere to minimal requirements when adding a new recipe. If a user doesn't have a photo to accompany their recipe, I have a built-in function that will automatically assign a cute placeholder image based on the type of dessert category they've selected.
-
+- [CRUD] Users can create or add a new recipe with a title, description, ingredients, steps, category, and optional image.
 **View a Recipe**
-- [C**R**UD] Read or 'review' recipes, either from the main page, or the user profile.
-    - Check ingredients / directions as 'complete' if making the recipe themselves.
-    - View two additional recipe suggestions.
-    - View a *conversion chart* either by temperature, volume, or weight.
+- [C**R**UD] Users can read or view any recipe from the main page or by searching/filtering.
+- Each recipe shows:
 
+  - Title, category, author, and created date.
+
+  - Ingredients & preparation steps.
+
+  - Associated image (if uploaded).
+
+- Recipes are displayed in card format with filtering (All, Cakes, Pastries, Breads).
 **Update a Recipe**
-- [CR**U**D] Update or 'edit' their own user recipes on this page.
+- [CR**U**D] Logged-in users can edit their own recipes.
+- They can update the name, description, ingredients, steps, category, and image
 
 **Delete a Recipe**
-- [CRU**D**] Delete or 'remove' a user's own recipes. The *admin* account also has access to delete recipes, should they be inappropriate for example.
-
-**Save a Recipe to Favorites**
-- Users can save their own recipes, or recipes submitted by other users, directly into their profile for quicker access next time.
-
+- [CRU**D**] Logged-in users can delete their own recipes.
+- Admins also have permission to delete any recipe that violates guidelines.
 
 **Admin Superuser**
 - My ***'Admin'*** profile has several extra features, which currently include:
     - Edit / Delete any recipe from the database.
-    - View join-date / favs / recipes of all registered users. (added March 2025)
-    - Delete any registered user from the database. (added March 2025)
-    - Receive email for new recipes added or edited from database as backup in case database is lost. (added March 2025)
-    - View an interactive map of all visitors to the site. (added March 2025)
-    - View statistics of unique visitors by country, and total count. (added March 2025)
-
+    - Delete any registered user from the database.
+    - Receive email for new recipes added or edited from database as backup in case database is lost.
+   
 # 📖 About the Website
 
 Cake Cottage is more than just a bakery website—it's a community-driven recipe hub where users can:
@@ -172,6 +153,109 @@ Cake Cottage is more than just a bakery website—it's a community-driven recipe
 👍 Recipe Comments & Likes – Engage with the baking community.
 
 📱 Responsive Design – Accessible on all devices.
+
+## 🎨 Design Process
+
+The design of Cake Cottage followed a user-centered approach, ensuring the website is intuitive, visually appealing, and responsive.
+
+🔹 Planning & Reasoning
+
+The color scheme was chosen to give a warm, cozy, and bakery-inspired feel (soft browns, cream, and pink tones).
+
+Typography was selected to combine readability with a friendly aesthetic using Google Fonts.
+
+Layout was structured with clarity in mind, ensuring recipes are easy to find and interact with.
+
+🔹 Wireframes
+
+Wireframes were created during the planning phase to outline structure and navigation.
+
+Home Page Wireframe: Showcases the hero banner, navigation bar, recipe filters, and featured recipes.
+
+Recipe Detail Page Wireframe: Displays ingredients, steps, image placeholder, comments, and like button.
+
+![alt text](image-1.png)
+![alt text](image-2.png)
+
+- Home (Desktop)
+
+` Key elements
+
+Navbar: logo, primary links, Products dropdown, auth links, search
+
+Hero: site title, tagline, search, “+ Add recipe”
+
+Category filters: All / Cakes / Pastries / Breads
+
+Recipe cards grid (image, title, meta, excerpt, CTA)
+
+Footer with copyright `
+
+- Recipe Detail (Desktop)
+
+`Key elements
+
+Title area over hero (title, category, byline, like/edit/delete when permitted)
+
+Two-column “glass card” content: Ingredients and Instructions
+
+Comments list + add comment (auth required)
+
+Footer`
+
+- Add / Edit Recipe (Desktop)
+
+` Form fields
+
+Title
+
+Category (select)
+
+Image upload (optional)
+
+Short description / excerpt
+
+Ingredients (textarea)
+
+Instructions (textarea)
+
+Submit / Cancel `
+
+- Home (Mobile)
+
+` Notes
+
+Compact header with hamburger menu
+
+Condensed hero with search + add
+
+Horizontal/scrollable category filters
+
+Stacked recipe cards
+
+Footer `
+
+🔹 Mockups
+
+High-fidelity mockups were created to finalize design decisions such as:
+
+Placement of search bar & filters.
+
+Recipe cards layout (image + title + description).
+
+Mobile responsiveness with collapsible menus.
+
+🔹 Database Schema Diagram
+
+The project uses a relational database with the following models:
+
+User – authentication, profile management.
+
+Recipe – linked to User, includes ingredients, steps, image, and category.
+
+Comment – linked to User & Recipe.
+
+Like – linked to User & Recipe.
 
 ## Features Left to Implement
 
@@ -242,14 +326,14 @@ Add these lines to urls.py to serve media files during development:
 - **Heroku**
     - [Heroku](https://www.heroku.com) - Hosting platform.
 
-4. Duplicate Static Files Warning in collectstatic
+1. Duplicate Static Files Warning in collectstatic
 Problem:
 - When running python manage.py collectstatic, warnings appeared stating that some static files were ignored due to duplication.
 
 Solution:
 - Check if there are multiple static directories (e.g., static/ and staticfiles/).
 
-5. Django 500 Server Error (Internal Server Error)
+2. Django 500 Server Error (Internal Server Error)
 Problem:
 The website displayed "Server Error (500)" with no details.
 
@@ -299,9 +383,80 @@ The app supports user authentication and authorization to ensure secure interact
 
 * 👤 Permissions & Access Control: Users can create and modify their own recipes; only owners can edit or delete them.
 
-## 🌍 Deployment
+## Testing
+### Lighthouse performance:
+![alt text](image-3.png)
 
-The website is hosted on Heroku, leveraging PostgreSQL as the production database. Whitenoise efficiently manages static files for improved performance.
+To evaluate the performance, accessibility, best practices, and SEO of Cake Cottage, I used Google Lighthouse in Chrome DevTools.
+
+The results were as follows:
+
+Performance: 91 – The website loads quickly and efficiently, optimized for both desktop and mobile devices.
+
+Accessibility: 95 – Content is structured and styled to be accessible to a wide range of users, including those using assistive technologies.
+
+Best Practices: 78 – The score was affected by a third-party script (Kaspersky browser extension), which triggered a deprecated API warning. This does not originate from the project codebase itself.
+
+SEO: 91 – The website follows good SEO practices, making it discoverable and user-friendly on search engines.
+
+📌 These results confirm that the project is well-optimized, accessible, and follows modern development practices.
+
+## 🌍 Deployment
+This project is deployed on Heroku using Gunicorn and WhiteNoise.
+
+✅ Prerequisites:
+- Heroku account & CLI installed: [https://devcenter.heroku.com/articles/heroku-cli]
+- Git installed
+- A Postgres database URL (e.g./ Heroku Postgres or Neon)
+- This repository contains:
+
+  - Procfile
+
+  - runtime.txt (e.g., python-3.12.4)
+
+  - requirements.txt
+
+Procfile:
+`web: gunicorn my_project.wsgi`
+
+runtime.txt(example):
+`python-3.12.4`
+
+Install dependencies:
+`pip freeze > requirements.txt`
+
+Key packages used:
+
+  - gunicorn
+
+  - whitenoise
+
+  - dj-database-url
+
+  - psycopg2-binary (or psycopg2)
+  
+Login to create the app:
+`heroku login
+heroku create your-heroku-app-name`
+
+Set config vars on Heroku:
+
+`heroku config:set SECRET_KEY="your-strong-secret" -a your-heroku-app-name
+heroku config:set DEBUG=False -a your-heroku-app-name
+heroku config:set DATABASE_URL="postgres://..." -a your-heroku-app-name`
+
+Push to Heroku:
+`git add .
+git commit -m "Deploy: initial Heroku release"
+git push heroku main`
+
+Run migrations & collect static:
+`heroku run python manage.py migrate -a your-heroku-app-name
+heroku run python manage.py collectstatic --noinput -a your-heroku-app-name`
+
+Open the app:
+`heroku open -a your-heroku-app-name
+`
 
 ## ✅ Feel Free to Explore!
 The Little Cake Cottage is a friendly and welcoming space for all baking lovers. Whether you're a beginner or an experienced baker, you are encouraged to:
